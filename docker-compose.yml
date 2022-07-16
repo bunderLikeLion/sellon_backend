@@ -12,8 +12,6 @@ services:
     container_name: webapp-dev-container
     entrypoint:
       - /docker-entrypoint.sh
-    ports:
-      - 8888:8888
     depends_on:
       - db
   db:
