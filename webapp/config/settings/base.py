@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import environ
 
-PROJECT_DIR = environ.Path(__file__) - 4
+PROJECT_DIR = environ.Path(__file__) - 3
 
 env = environ.Env(
     DEBUG=(bool, False)

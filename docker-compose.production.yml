@@ -1,0 +1,16 @@
+version: '3'
+services:
+  webapp:
+    env_file:
+      - ./.env
+    volumes:
+      - ./webapp:/usr/src/app
+    build:
+      context: ./webapp
+      dockerfile: ./Dockerfile.production
+    image: webapp-image
+    container_name: webapp-container
+    entrypoint:
+      - /docker-entrypoint.production.sh
+    ports:
+      - 8888:8888
