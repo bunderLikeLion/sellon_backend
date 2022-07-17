@@ -27,7 +27,7 @@ services:
     links:
       - webapp
     entrypoint:
-      - /docker-entrypoint.production.sh
+      - /docker-entrypoint.sh
   db:
     image: postgres
     expose:
