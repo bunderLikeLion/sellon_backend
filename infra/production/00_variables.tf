@@ -49,3 +49,11 @@ variable "ecs_cluster_name" {
 variable "log_retention_in_days" {
   default = 30
 }
+
+
+# keypair
+
+variable "ssh_pubkey_file" {
+  description = "Path to an SSH public key"
+  default     = "~/.ssh/id_rsa.pub"
+}
