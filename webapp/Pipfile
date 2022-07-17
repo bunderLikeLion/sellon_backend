@@ -9,6 +9,9 @@ gunicorn = "*"
 django-environ = "*"
 psycopg2-binary = "*"
 djangorestframework = "*"
+dj-rest-auth = "*"
+django-allauth = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 pre-commit = "*"
