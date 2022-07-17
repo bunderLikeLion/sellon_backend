@@ -5,6 +5,7 @@ services:
       - ./.env
     volumes:
       - ./webapp:/usr/src/app
+      - staticfiles:/usr/src/app/static
     build:
       context: ./webapp
       dockerfile: ./Dockerfile.production
@@ -21,13 +22,15 @@ services:
     image: nginx-image
     container_name: nginx-container
     ports:
-      - 80:80
+      - 8888:80
     depends_on:
       - webapp
     links:
       - webapp
     entrypoint:
       - /docker-entrypoint.sh
+    volumes:
+      - staticfiles:/static
   db:
     image: postgres
     expose:
@@ -47,3 +50,4 @@ services:
 
 volumes:
   postgres_data:
+  staticfiles:

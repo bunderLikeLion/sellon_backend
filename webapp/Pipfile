@@ -12,6 +12,7 @@ djangorestframework = "*"
 dj-rest-auth = "*"
 django-allauth = "*"
 djangorestframework-simplejwt = "*"
+drf-yasg = "*"
 
 [dev-packages]
 pre-commit = "*"

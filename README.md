@@ -20,3 +20,9 @@
 ```sh
 > pre-commit install
 ```
+
+## Commands
+### nginx reload
+```
+docker exec -it nginx-dev-container nginx -s reload
+```
