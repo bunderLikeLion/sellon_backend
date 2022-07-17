@@ -22,7 +22,7 @@ services:
     image: nginx-image
     container_name: nginx-container
     ports:
-      - 8888:80
+      - 80:80
     depends_on:
       - webapp
     links:
