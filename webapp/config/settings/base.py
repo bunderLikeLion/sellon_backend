@@ -43,7 +43,9 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-PACKAGE_APPS = []
+PACKAGE_APPS = [
+    'rest_framework',
+]
 
 PROJECT_APPS = []
 
