@@ -43,6 +43,26 @@ variable "ecs_cluster_name" {
   default     = "production"
 }
 
+variable "amis" {
+  description = "Which AMI to spawn."
+  default = {
+    ap-northeast-2 = "ami-0fddf6737a5d12089"
+  }
+}
+
+variable "instance_type" {
+  default = "t2.micro"
+}
+
+variable "webapp_image_url" {
+  description = "Docker image to run in the ECS cluster"
+  default     = "741892569245.dkr.ecr.ap-northeast-2.amazonaws.com:latest"
+}
+
+variable "app_count" {
+  description = "Number of Docker containers to run"
+  default     = 1
+}
 
 # logs
 
