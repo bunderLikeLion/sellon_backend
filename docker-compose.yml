@@ -6,6 +6,7 @@ services:
     volumes:
       - ./webapp:/usr/src/app
       - staticfiles:/usr/src/app/static
+      - mediafiles:/usr/src/app/media
     build:
       context: ./webapp
       dockerfile: ./Dockerfile
@@ -35,6 +36,7 @@ services:
       - /docker-entrypoint.sh
     volumes:
       - staticfiles:/static
+      - mediafiles:/media
   db:
     image: postgres
     expose:
@@ -55,3 +57,4 @@ services:
 volumes:
   postgres_data:
   staticfiles:
+  mediafiles:
