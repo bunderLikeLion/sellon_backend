@@ -1,17 +1,22 @@
 version: '3'
 services:
-  webapp:
+  webapp: &webapp
     env_file:
       - ./.env
     volumes:
       - ./webapp:/usr/src/app
+      - staticfiles:/usr/src/app/static
+      - mediafiles:/usr/src/app/media
     build:
       context: ./webapp
       dockerfile: ./Dockerfile
     image: webapp-dev-image
     container_name: webapp-dev-container
-    entrypoint:
-      - /docker-entrypoint.sh
+    command: >
+      bash -c "python ./manage.py makemigrations --noinput &&
+               python ./manage.py migrate --noinput &&
+               python ./manage.py collectstatic --noinput &&
+               python ./manage.py runserver 0.0.0.0:8888"
     depends_on:
       - db
   nginx:
@@ -29,6 +34,9 @@ services:
       - webapp
     entrypoint:
       - /docker-entrypoint.sh
+    volumes:
+      - staticfiles:/static
+      - mediafiles:/media
   db:
     image: postgres
     expose:
@@ -48,3 +56,5 @@ services:
 
 volumes:
   postgres_data:
+  staticfiles:
+  mediafiles:
