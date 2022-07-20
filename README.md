@@ -1,5 +1,4 @@
-#
-
+# sellon_backend
 
 ## Dev Settings
 
@@ -25,4 +24,23 @@
 ### nginx reload
 ```
 docker exec -it nginx-dev-container nginx -s reload
+```
+
+### 로그 보기
+```
+## 전체 
+docker-compose logs -f
+
+## webapp 로그 보기
+docker-compose logs -f webapp
+```
+
+### 슈퍼 유저 생성
+```
+docker-compose run --rm webapp python manage.py createsuperuser
+```
+
+### 마이그레이션 생성
+```
+docker-compose run --rm webapp python manage.py makemigrations
 ```
