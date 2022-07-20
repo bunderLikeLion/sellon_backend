@@ -12,10 +12,22 @@ services:
     container_name: webapp-container
     entrypoint:
       - /docker-entrypoint.production.sh
-    ports:
-      - 8888:8888
     depends_on:
       - db
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile
+    image: nginx-image
+    container_name: nginx-container
+    ports:
+      - 80:80
+    depends_on:
+      - webapp
+    links:
+      - webapp
+    entrypoint:
+      - /docker-entrypoint.sh
   db:
     image: postgres
     expose:
