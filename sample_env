@@ -1,1 +1,6 @@
 SECRET_KEY=your-secret-key
+
+POSTGRES_DB=sellon
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=db-password
+POSTGRES_PORT=5555
