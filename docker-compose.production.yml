@@ -33,6 +33,7 @@ services:
     volumes:
       - staticfiles:/static
       - mediafiles:/media
+      - ./logs:/var/log/nginx
   db:
     image: postgres
     expose:
