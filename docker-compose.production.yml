@@ -19,7 +19,7 @@ services:
   nginx:
     build:
       context: ./nginx
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.production
     image: nginx-image
     container_name: nginx-container
     ports:
