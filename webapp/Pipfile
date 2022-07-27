@@ -13,6 +13,7 @@ dj-rest-auth = "*"
 django-allauth = "*"
 djangorestframework-simplejwt = "*"
 drf-yasg = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 pre-commit = "*"

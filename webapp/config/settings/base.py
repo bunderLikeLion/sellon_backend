@@ -52,6 +52,8 @@ PACKAGE_APPS = [
     'allauth.account',
     'dj_rest_auth.registration',
     'drf_yasg',
+    # django-cors-header
+    'corsheaders',
 ]
 
 PROJECT_APPS = [
@@ -61,6 +63,7 @@ PROJECT_APPS = [
 INSTALLED_APPS = DJANGO_APPS + PACKAGE_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -169,3 +172,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 }
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True

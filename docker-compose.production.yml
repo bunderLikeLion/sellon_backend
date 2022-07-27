@@ -19,7 +19,7 @@ services:
   nginx:
     build:
       context: ./nginx
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.production
     image: nginx-image
     container_name: nginx-container
     ports:
@@ -33,6 +33,7 @@ services:
     volumes:
       - staticfiles:/static
       - mediafiles:/media
+      - ./logs:/var/log/nginx
   db:
     image: postgres
     expose:
