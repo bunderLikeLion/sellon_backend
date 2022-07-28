@@ -33,7 +33,7 @@ class Product(BaseModel):
         blank=True,
         max_length=300,
     )
-    quality = models.IntegerField(
+    quantity = models.IntegerField(
         verbose_name='수량',
         null=False,
         default=1,
