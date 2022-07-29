@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from .models import User
 
 
-class DeleteUser(generics.DestroyAPIView):
+class DestroyUser(generics.DestroyAPIView):
     queryset = User.objects.all()
 
     def get_object(self):
