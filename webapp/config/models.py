@@ -10,7 +10,7 @@ class ModelManager(models.Manager):
         return super().get_queryset()
 
 
-class DeletedModelManager(ModelManager):
+class SoftDeleteModelManager(ModelManager):
     use_for_related_fields = True
 
     def get_queryset(self):
@@ -33,11 +33,11 @@ class BaseModel(models.Model):
     )
 
 
-class BaseModelWithDeleted(BaseModel):
+class SoftDeleteModel(BaseModel):
     class Meta:
         abstract = True
 
-    objects = DeletedModelManager()
+    objects = SoftDeleteModelManager()
 
     deleted_at = models.DateTimeField(
         verbose_name='삭제된 일시',
