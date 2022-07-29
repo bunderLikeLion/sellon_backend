@@ -9,6 +9,14 @@ class Product(BaseModel):
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
 
+    QUALITY_CHOICES = (
+        (1, '하'),
+        (2, '중하'),
+        (3, '중'),
+        (4, '중상'),
+        (5, '상'),
+    )
+
     # inventory = models.ForeignKey(
     #     Inventory,
     #     on_delete=models.SET_NULL,
@@ -37,6 +45,12 @@ class Product(BaseModel):
         verbose_name='수량',
         null=False,
         default=1,
+    )
+    quality = models.IntegerField(
+        verbose_name='품질',
+        null=False,
+        choices=QUALITY_CHOICES,
+        default=3,
     )
     abstract = models.CharField(
         verbose_name='요약',
