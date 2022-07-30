@@ -14,7 +14,7 @@ class SoftDeleteModelManager(ModelManager):
     use_for_related_fields = True
 
     def get_queryset(self):
-        return super().get_queryset().filter(deleted_at__is_null=True)
+        return super().get_queryset().filter(deleted_at__isnull=True)
 
 
 class BaseModel(models.Model):
