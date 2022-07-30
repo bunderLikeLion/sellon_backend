@@ -50,6 +50,7 @@ PACKAGE_APPS = [
     'drf_yasg',
     # django-cors-header
     'corsheaders',
+    'django_guid',
 ]
 
 PROJECT_APPS = [
@@ -69,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_guid.middleware.guid_middleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -91,7 +93,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -101,7 +102,6 @@ DATABASES = {
         'NAME': f'{PROJECT_DIR}/db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -121,7 +121,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -132,7 +131,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -171,6 +169,16 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+# DJANGO_GUID settings
+DJANGO_GUID = {
+    'GUID_HEADER_NAME': 'Correlation-ID',
+    'VALIDATE_GUID': True,
+    'RETURN_HEADER': True,
+    'EXPOSE_HEADER': True,
+    'INTEGRATIONS': [],
+    'IGNORE_URLS': [],
+    'UUID_LENGTH': 32,
+}
