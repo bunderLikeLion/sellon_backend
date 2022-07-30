@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8f55695b3efd2f970f09bc2e67ca342d35eef373a3846fb57d6265cd74038008"
+            "sha256": "e35649bee6b66a23751c42bfe8913d039c6fdeda7b93b80a4b3daa7428c131a8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -9,9 +9,9 @@
         },
         "sources": [
             {
-                "name": "pypi",
-                "url": "https://pypi.org/simple",
-                "verify_ssl": true
+                "name": "kakao",
+                "url": "https://mirror.kakao.com/pypi/simple",
+                "verify_ssl": false
             }
         ]
     },
@@ -162,7 +162,7 @@
             "hashes": [
                 "sha256:c9a0dd9c79c33a2d4c723d1e4c1a60ab4657b6333aa2539b6781fe25a01c41b6"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==2.2.5"
         },
         "django": {
@@ -170,14 +170,14 @@
                 "sha256:a67a793ff6827fd373555537dca0da293a63a316fe34cb7f367f898ccca3c3ae",
                 "sha256:ca54ebedfcbc60d191391efbf02ba68fb52165b8bf6ccd6fe71f098cac1fe59e"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==4.0.6"
         },
         "django-allauth": {
             "hashes": [
                 "sha256:ca1622733b6faa591580ccd3984042f12d8c79ade93438212de249b7ffb6f91f"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==0.51.0"
         },
         "django-cors-headers": {
@@ -185,7 +185,7 @@
                 "sha256:37e42883b5f1f2295df6b4bba96eb2417a14a03270cb24b2a07f021cd4487cf4",
                 "sha256:f9dc6b4e3f611c3199700b3e5f3398c28757dcd559c2f82932687f3d0443cfdf"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==3.13.0"
         },
         "django-environ": {
@@ -193,7 +193,7 @@
                 "sha256:bff5381533056328c9ac02f71790bd5bf1cea81b1beeb648f28b81c9e83e0a21",
                 "sha256:f21a5ef8cc603da1870bbf9a09b7e5577ab5f6da451b843dbcc721a7bca6b3d9"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==0.9.0"
         },
         "django-guid": {
@@ -201,7 +201,7 @@
                 "sha256:a684571b134d40fd9ab6729d069e77794c8bf1d5849676e43afc9ca4051867ed",
                 "sha256:d32289b3a570f18e965ac97da5749389775ccb9f774300477f35edc21ec92805"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==3.3.0"
         },
         "djangorestframework": {
@@ -209,7 +209,7 @@
                 "sha256:0c33407ce23acc68eca2a6e46424b008c9c02eceb8cf18581921d0092bc1f2ee",
                 "sha256:24c4bf58ed7e85d1fe4ba250ab2da926d263cd57d64b03e8dcef0ac683f8b1aa"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==3.13.1"
         },
         "djangorestframework-simplejwt": {
@@ -217,15 +217,22 @@
                 "sha256:a60b09afb27d91ad1d7ac904cc632bd52cecead8f389f0fa1532ceb0fb757a74",
                 "sha256:bcc4cb74dcb637ca1e17eed35276bd618ab19491f8c53e65dee6271177c355e8"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==5.2.0"
+        },
+        "drf-writable-nested": {
+            "hashes": [
+                "sha256:e3224edcaaf86cc43a1e0d8e2f39aed42e651b45ab0106dadf02f07af3806626"
+            ],
+            "index": "kakao",
+            "version": "==0.6.4"
         },
         "drf-yasg": {
             "hashes": [
                 "sha256:85899b8b173cac7d39af3fea205bdc1a599aed8de3389a3bcccc29b37b9b983e",
                 "sha256:b2eebb438fa641503a08dac791be24183ea26dbcfe371a9824ea91f6e3a988aa"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==1.21.3"
         },
         "gunicorn": {
@@ -233,7 +240,7 @@
                 "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e",
                 "sha256:e0a968b5ba15f8a328fdfd7ab1fcb5af4470c28aaf7e55df02a99bc13138e6e8"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==20.1.0"
         },
         "idna": {
@@ -390,7 +397,7 @@
                 "sha256:fa768eff5f9f958270b081bb33581b4b569faabf8774726b283edb06617101dc",
                 "sha256:fac2d65901fb0fdf20363fbd345c01958a742f2dc62a8dd4495af66e3ff502a4"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==9.2.0"
         },
         "psycopg2-binary": {
@@ -452,7 +459,7 @@
                 "sha256:e847774f8ffd5b398a75bc1c18fbb56564cda3d629fe68fd81971fece2d3c67e",
                 "sha256:ffb7a888a047696e7f8240d649b43fb3644f14f0ee229077e7f6b9f9081635bd"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==2.9.3"
         },
         "pycparser": {
@@ -463,7 +470,9 @@
             "version": "==2.21"
         },
         "pyjwt": {
-            "extras": [],
+            "extras": [
+                "crypto"
+            ],
             "hashes": [
                 "sha256:72d1d253f32dbd4f5c88eaf1fdc62f3a19f676ccbadb9dbc5d07e951b2b26daf",
                 "sha256:d42908208c699b3b973cbeb01a969ba6a96c821eefb1c5bfe4c390c01d67abba"
@@ -564,14 +573,6 @@
             "markers": "python_version >= '3.5'",
             "version": "==0.4.2"
         },
-        "tzdata": {
-            "hashes": [
-                "sha256:238e70234214138ed7b4e8a0fab0e5e13872edab3be586ab8198c407620e2ab9",
-                "sha256:8b536a8ec63dc0751342b3984193a3118f8fca2afe25752bb9b7fffd398552d3"
-            ],
-            "markers": "sys_platform == 'win32'",
-            "version": "==2022.1"
-        },
         "uritemplate": {
             "hashes": [
                 "sha256:4346edfc5c3b79f694bccd6d6099a322bbeb628dbf2cd86eea55a456ce5124f0",
@@ -618,7 +619,7 @@
                 "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d",
                 "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==4.0.1"
         },
         "identify": {
@@ -657,7 +658,7 @@
                 "sha256:51a5ba7c480ae8072ecdb6933df22d2f812dc897d5fe848778116129a681aac7",
                 "sha256:a978dac7bc9ec0bcee55c18a277d553b0f419d259dadb4b9418ff2d00eb43959"
             ],
-            "index": "pypi",
+            "index": "kakao",
             "version": "==2.20.0"
         },
         "pycodestyle": {
