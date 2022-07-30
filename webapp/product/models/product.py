@@ -1,5 +1,6 @@
 from django.db import models
 from config.models import BaseModel
+from product.models.product_category import ProductCategory
 
 
 class Product(BaseModel):
@@ -15,6 +16,13 @@ class Product(BaseModel):
         (3, '중'),
         (4, '중상'),
         (5, '상'),
+    )
+
+    product_category = models.ForeignKey(
+        ProductCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name='물품 카테고리'
     )
 
     # inventory = models.ForeignKey(
