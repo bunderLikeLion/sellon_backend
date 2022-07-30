@@ -22,21 +22,15 @@ class Product(BaseModel):
         ProductCategory,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         verbose_name='물품 카테고리'
     )
-
-    # inventory = models.ForeignKey(
-    #     Inventory,
-    #     on_delete=models.SET_NULL,
-    #     null=True,
-    #     verbose_name='인벤토리'
-    # )
-    # thumnail = models.ForeignKey(
-    #     Image,
-    #     on_delete=models.SET_NULL,
-    #     null=True,
-    #     verbose_name='썸네일 id'
-    # )
+    user = models.ForeignKey(
+        'user.User',
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name='유저'
+    )
     name = models.CharField(
         verbose_name='물품 명',
         null=False,
@@ -65,4 +59,10 @@ class Product(BaseModel):
         null=True,
         blank=True,
         max_length=100,
+    )
+    thumbnail = models.ForeignKey(
+        'file_manager.Image',
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name='썸네일',
     )

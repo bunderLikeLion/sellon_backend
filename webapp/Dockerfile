@@ -5,21 +5,27 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN pip install --upgrade pip
-
-COPY ./Pipfile* ./
-
 RUN apt-get update --no-install-recommends && \
   pip install --upgrade pip && \
-  pip install pipenv && \
-  pipenv install --system --ignore-pipfile
+  pip install pipenv
 
-FROM builder as webapp
-
-WORKDIR /usr/src/app
+FROM builder as package
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+
+WORKDIR /usr/src/app
+
+COPY ./Pipfile* ./
+
+RUN pipenv install --system --ignore-pipfile
+
+FROM package as webapp
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /usr/src/app
 
 COPY . .
 
