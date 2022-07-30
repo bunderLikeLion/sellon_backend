@@ -1,5 +1,5 @@
 from os.path import join
-
+from config.utils import create_file_if_not_exists
 from .base import * # noqa pylint: disable=wildcard-import, unused-wildcard-import
 
 DEBUG = True
@@ -19,6 +19,12 @@ DATABASES = (
     }
 )
 
+SQL_LOG_FILE_PATH = join(PROJECT_DIR, 'logs/sql_logfile.log')
+LOG_FILE_PATH = join(PROJECT_DIR, 'logs/logfile.log')
+
+create_file_if_not_exists(str(SQL_LOG_FILE_PATH))
+create_file_if_not_exists(str(LOG_FILE_PATH))
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -32,13 +38,13 @@ LOGGING = {
         'sql_logger': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': join(PROJECT_DIR, 'logs/sql_logfile.log'),
+            'filename': SQL_LOG_FILE_PATH,
             'formatter': 'fileFormat'
         },
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': join(PROJECT_DIR, 'logs/logfile.log'),
+            'filename': LOG_FILE_PATH,
             'formatter': 'fileFormat'
         },
         'console': {

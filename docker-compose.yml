@@ -7,6 +7,7 @@ services:
       - ./webapp:/usr/src/app
       - staticfiles:/usr/src/app/static
       - mediafiles:/usr/src/app/media
+      - ./logs:/usr/src/app/logs
     build:
       context: ./webapp
       dockerfile: ./Dockerfile
@@ -30,13 +31,12 @@ services:
     depends_on:
       - webapp
       - db
-    links:
-      - webapp
     entrypoint:
       - /docker-entrypoint.sh
     volumes:
       - staticfiles:/static
       - mediafiles:/media
+      - ./logs:/var/log/nginx
   db:
     image: postgres
     expose:
