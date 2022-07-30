@@ -1,4 +1,4 @@
-from config import models
+from django.db import models
 from config.models import SoftDeleteModel
 from product.models import Product
 from product.models.project_group import ProductGroup
@@ -13,11 +13,11 @@ class ProductGroupItem(SoftDeleteModel):
 
     product_group = models.ForeignKey(
         ProductGroup,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name='물품 그룹'
     )
     product = models.ForeignKey(
         Product,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name='물품'
     )

@@ -1,6 +1,6 @@
 from django.utils.timezone import now
 
-from config import models
+from django.db import models
 from config.models import SoftDeleteModel
 from product.models import Product
 from user.models import User
@@ -15,13 +15,13 @@ class Auction(SoftDeleteModel):
 
     owner = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=False,
         verbose_name='유저',
     )
     product = models.ForeignKey(
         Product,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=False,
         verbose_name='물품',
     )

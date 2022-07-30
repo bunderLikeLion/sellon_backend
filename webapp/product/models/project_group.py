@@ -1,5 +1,5 @@
 from auction.models.auction import Auction
-from config import models
+from django.db import models
 from config.models import SoftDeleteModel
 from user.models import User
 
@@ -13,12 +13,12 @@ class ProductGroup(SoftDeleteModel):
 
     user = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name='유저'
     )
     auction = models.ForeignKey(
         Auction,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name='경매'
     )
     money = models.IntegerField(
