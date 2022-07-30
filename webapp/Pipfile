@@ -15,6 +15,7 @@ djangorestframework-simplejwt = "*"
 drf-yasg = "*"
 django-cors-headers = "*"
 django-guid = "*"
+pillow = "*"
 
 [dev-packages]
 pre-commit = "*"
