@@ -7,7 +7,7 @@ from product.models.project_group import ProductGroup
 class ProductGroupItem(SoftDeleteModel):
 
     class Meta:
-        db_table = 'product_group_item'
+        db_table = 'product_group_items'
         verbose_name = 'ProductGroupItem'
         verbose_name_plural = 'ProductGroupItems'
 
