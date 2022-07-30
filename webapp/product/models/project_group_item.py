@@ -1,0 +1,23 @@
+from config import models
+from config.models import SoftDeleteModel
+from product.models import Product
+from product.models.project_group import ProductGroup
+
+
+class ProductGroupItem(SoftDeleteModel):
+
+    class Meta:
+        db_table = 'product_group_item'
+        verbose_name = 'ProductGroupItem'
+        verbose_name_plural = 'ProductGroupItems'
+
+    product_group = models.ForeignKey(
+        ProductGroup,
+        on_delete=models.SET_NULL,
+        verbose_name='물품 그룹'
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.SET_NULL,
+        verbose_name='물품'
+    )
