@@ -57,6 +57,7 @@ PROJECT_APPS = [
     'user',
     'product',
     'file_manager',
+    'auction',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PACKAGE_APPS + PROJECT_APPS
