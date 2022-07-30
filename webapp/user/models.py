@@ -4,6 +4,8 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+from config.models import BaseModel
+
 
 class UserManager(BaseUserManager):
     """ModelManager definition for User Model"""
@@ -57,3 +59,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_superuser
+
+
+class Inventory(BaseModel):
+
+    class Meta:
+        db_table = 'inventories'
+        verbose_name = 'Inventory'
+        verbose_name_plural = 'Inventories'
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name='유저'
+    )
