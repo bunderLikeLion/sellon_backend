@@ -4,7 +4,7 @@ from .serializers import UserAbstractSerializer
 from .models import User
 
 
-class DestroyUser(generics.DestroyAPIView):
+class DestroyUserAPIView(generics.DestroyAPIView):
     queryset = User.objects.all()
 
     def get_object(self):
@@ -16,14 +16,6 @@ class DestroyUser(generics.DestroyAPIView):
             return Response(content, status=status.HTTP_404_NOT_FOUND)
 
 
-class RetrieveUser(generics.RetrieveAPIView):
+class RetrieveUserAPIView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserAbstractSerializer
-
-    def get_object(self):
-        try:
-            instance = self.queryset.get(username=self.request.user.username)
-            return instance
-        except User.DoesNotExist:
-            content = {'No User Exist': 'nothing to see here'}
-            return Response(content, status=status.HTTP_404_NOT_FOUND)
