@@ -1,6 +1,6 @@
 from os.path import join
 from config.utils import create_file_if_not_exists
-from .base import * # noqa pylint: disable=wildcard-import, unused-wildcard-import
+from .base import *  # noqa pylint: disable=wildcard-import, unused-wildcard-import
 
 DEBUG = True
 ALLOWED_HOSTS = ['*']
@@ -29,38 +29,62 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'fileFormat': {
-            'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s',
-            'datefmt': '%d/%b/%Y %H:%M:%S'
-        }
+        'logFormat': {
+            'format': '{levelname} ... [{correlation_id}] [{name}:{lineno}] {asctime} {message}',
+            'datefmt': '%d/%b/%Y %H:%M:%S',
+            'style': '{',
+        },
+
+    },
+    'filters': {
+        'correlation_id': {
+            '()': 'django_guid.log_filters.CorrelationId'
+        },
     },
     'handlers': {
         'sql_logger': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': SQL_LOG_FILE_PATH,
-            'formatter': 'fileFormat'
+            'formatter': 'logFormat'
         },
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': LOG_FILE_PATH,
-            'formatter': 'fileFormat'
+            'filters': ['correlation_id'],
+            'formatter': 'logFormat'
         },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
+            'formatter': 'logFormat',
+            'filters': ['correlation_id'],
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'filters': ['correlation_id'],
+            'formatter': 'logFormat',
         },
 
     },
     'loggers': {
-        'simple_loger': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO'
-        },
         'django.db.backends': {
             'handlers': ['console', 'sql_logger'],
             'level': 'DEBUG',
+            'formatter': 'logFormat',
+            'filters': ['correlation_id'],
+        },
+        'django_guid': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['django.server', 'file'],
+            'level': 'INFO',
+            'propagate': False,
         },
     },
 }
