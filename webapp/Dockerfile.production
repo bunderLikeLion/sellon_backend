@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN pip install --upgrade pip
 
-COPY ./Pipfile* .
+COPY ./Pipfile* ./
 
 RUN apt-get update --no-install-recommends && \
   pip install --upgrade pip && \
