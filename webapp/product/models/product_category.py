@@ -17,7 +17,7 @@ class ProductCategory(SoftDeleteModel):
         max_length=100,
     )
     primary = models.BooleanField(
-        verbose_name='메인 상품 여부',
+        verbose_name='주요 분류 유무',
         null=False,
         blank=False,
         default=False,
@@ -26,4 +26,5 @@ class ProductCategory(SoftDeleteModel):
         verbose_name='전시 순서',
         null=False,
         blank=False,
+        default=0,
     )
