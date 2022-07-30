@@ -20,6 +20,7 @@ services:
                python ./manage.py runserver 0.0.0.0:8888"
     depends_on:
       - db
+    restart: always
   nginx:
     build:
       context: ./nginx
@@ -33,10 +34,13 @@ services:
       - db
     entrypoint:
       - /docker-entrypoint.sh
+    links:
+      - webapp
     volumes:
       - staticfiles:/static
       - mediafiles:/media
       - ./logs:/var/log/nginx
+    restart: always
   db:
     image: postgres
     expose:
