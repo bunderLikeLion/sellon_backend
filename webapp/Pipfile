@@ -14,6 +14,7 @@ django-allauth = "*"
 djangorestframework-simplejwt = "*"
 drf-yasg = "*"
 django-cors-headers = "*"
+django-guid = "*"
 
 [dev-packages]
 pre-commit = "*"
