@@ -17,8 +17,8 @@ class Auction(SoftDeleteModel):
     DELIVERY_DEAL_TYPE = 1
 
     DEALING_TYPE = (
-        (DELIVERY_DEAL_TYPE, 'delivery'),
         (DIRECT_DEAL_TYPE, 'direct'),
+        (DELIVERY_DEAL_TYPE, 'delivery'),
     )
 
     owner = models.ForeignKey(
