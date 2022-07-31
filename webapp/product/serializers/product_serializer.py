@@ -10,7 +10,6 @@ class ProductSerializer(WritableNestedModelSerializer):
     thumbnail = ImageSerializer(
         error_messages={
             'required': '썸네일을 첨부해주세요.',
-            'blank': '썸네일을 첨부해주세요.',
             'empty': '썸네일을 첨부해주세요.',
         }
     )
