@@ -18,7 +18,9 @@ WORKDIR /usr/src/app
 
 COPY ./Pipfile* ./
 
-RUN pipenv install --system --ignore-pipfile
+RUN pipenv requirements > requirements.txt
+RUN pip install -r requirements.txt
+# RUN pipenv install --system --ignore-pipfile
 
 FROM package as webapp
 
