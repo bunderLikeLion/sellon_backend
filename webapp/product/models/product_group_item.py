@@ -1,7 +1,7 @@
 from django.db import models
 from config.models import SoftDeleteModel
 from product.models import Product
-from product.models.project_group import ProductGroup
+from .product_group import ProductGroup
 
 
 class ProductGroupItem(SoftDeleteModel):
