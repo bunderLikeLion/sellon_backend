@@ -15,12 +15,14 @@ class Message(BaseModel):
         on_delete=models.CASCADE,
         null=False,
         verbose_name='받는 사람',
+        related_name='receiver',
     )
     sender = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         null=False,
         verbose_name='보내는 사람',
+        related_name='sender',
     )
     content = models.TextField(
         max_length=300,
