@@ -35,25 +35,8 @@ class Dealing(SoftDeleteModel):
         default=0,
         db_index=True,
     )
-    created_at = models.DateTimeField(
-        verbose_name='거래 생성 일시',
-        null=True,
-        blank=True,
-        auto_now_add=True,
-    )
-    updated_at = models.DateTimeField(
-        verbose_name='거래 수정 일시',
-        null=True,
-        blank=True,
-        auto_now=True,
-    )
     completed_at = models.DateTimeField(
         verbose_name='거래 완료 일시',
-        null=True,
-        blank=True,
-    )
-    deleted_at = models.DateTimeField(
-        verbose_name='거래 삭제 일시',
         null=True,
         blank=True,
     )
