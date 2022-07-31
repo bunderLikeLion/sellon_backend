@@ -1,10 +1,10 @@
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 
-from product.models import Product
-from user.serializers import UserAbstractSerializer
+from config.serializers import IntegerChoiceField
 from file_manager.serializers import ImageSerializer
-from product.models import ProductCategory
+from product.models import Product, ProductCategory
+from user.serializers import UserAbstractSerializer
 from .product_category_serializer import ProductCategorySerializer
 
 
@@ -22,6 +22,8 @@ class ProductSerializer(WritableNestedModelSerializer):
         queryset=ProductCategory.objects.all(),
         write_only=True,
     )
+    quality = IntegerChoiceField(choices=Product.QUALITY_CHOICES)
+    status = IntegerChoiceField(choices=Product.STATUS_CHOICES)
 
     class Meta:
         model = Product
