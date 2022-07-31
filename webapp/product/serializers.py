@@ -1,7 +1,8 @@
+from drf_writable_nested.serializers import WritableNestedModelSerializer
+
 from product.models import Product
 from user.serializers import UserAbstractSerializer
 from file_manager.serializers import ImageSerializer
-from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 
 class ProductSerializer(WritableNestedModelSerializer):
@@ -18,11 +19,17 @@ class ProductSerializer(WritableNestedModelSerializer):
             'description',
             'quantity',
             'quality',
+            'status',
             'abstract',
+            'dealing_at',
+            'dealed_at',
             'created_at',
             'updated_at',
         ]
         read_only_fields = [
+            'status',
+            'dealing_at',
+            'dealed_at',
             'created_at',
             'updated_at',
         ]

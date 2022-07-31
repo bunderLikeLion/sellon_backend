@@ -9,9 +9,13 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'quality',
-        'quantity'
+        'quantity',
+        'status',
     )
-    list_filter = ()
+    list_filter = (
+        'status',
+        'quality',
+    )
     raw_id_fields = ()
     readonly_fields = ()
     search_fields = (

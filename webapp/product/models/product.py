@@ -1,6 +1,5 @@
 from django.db import models
 from config.models import BaseModel
-from product.models.product_category import ProductCategory
 
 
 class Product(BaseModel):
@@ -10,6 +9,11 @@ class Product(BaseModel):
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
 
+    HIDDEN_STATUS = 0
+    IN_ACTION_STATUS = 1
+    DEALING_STATUS = 2
+    DEALED_STATUS = 3
+
     QUALITY_CHOICES = (
         (1, '하'),
         (2, '중하'),
@@ -18,8 +22,15 @@ class Product(BaseModel):
         (5, '상'),
     )
 
+    STATUS_CHOICES = (
+        (HIDDEN_STATUS, 'hidden'),
+        (IN_ACTION_STATUS, 'in_auction'),
+        (DEALING_STATUS, 'dealing'),
+        (DEALED_STATUS, 'dealed'),
+    )
+
     product_category = models.ForeignKey(
-        ProductCategory,
+        'ProductCategory',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -28,6 +39,7 @@ class Product(BaseModel):
     user = models.ForeignKey(
         'user.User',
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
         verbose_name='유저'
     )
@@ -53,6 +65,14 @@ class Product(BaseModel):
         null=False,
         choices=QUALITY_CHOICES,
         default=3,
+        db_index=True,
+    )
+    status = models.IntegerField(
+        verbose_name='상태',
+        null=False,
+        choices=STATUS_CHOICES,
+        default=0,
+        db_index=True,
     )
     abstract = models.CharField(
         verbose_name='요약',
@@ -63,6 +83,17 @@ class Product(BaseModel):
     thumbnail = models.ForeignKey(
         'file_manager.Image',
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
         verbose_name='썸네일',
+    )
+    dealing_at = models.DateTimeField(
+        verbose_name='거래 시작 일시',
+        null=True,
+        blank=True,
+    )
+    dealed_at = models.DateTimeField(
+        verbose_name='거래 완료 일시',
+        null=True,
+        blank=True,
     )
