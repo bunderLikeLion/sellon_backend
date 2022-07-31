@@ -10,7 +10,7 @@ class Product(BaseModel):
         verbose_name_plural = 'Products'
 
     HIDDEN_STATUS = 0
-    IN_ACTION_STATUS = 1
+    IN_AUCTION_STATUS = 1
     DEALING_STATUS = 2
     DEALED_STATUS = 3
 
@@ -24,7 +24,7 @@ class Product(BaseModel):
 
     STATUS_CHOICES = (
         (HIDDEN_STATUS, 'hidden'),
-        (IN_ACTION_STATUS, 'in_auction'),
+        (IN_AUCTION_STATUS, 'in_auction'),
         (DEALING_STATUS, 'dealing'),
         (DEALED_STATUS, 'dealed'),
     )

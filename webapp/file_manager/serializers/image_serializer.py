@@ -11,7 +11,6 @@ class ImageSerializer(serializers.ModelSerializer):
         use_url=True,
         error_messages={
             'required': '이미지를 첨부해주세요.',
-            'blank': '이미지를 첨부해주세요.',
             'empty': '이미지를 첨부해주세요.',
             'invalid': '이미지를 첨부해주세요.',
         }
