@@ -13,6 +13,14 @@ class Auction(SoftDeleteModel):
         verbose_name = 'Auction'
         verbose_name_plural = 'Auctions'
 
+    DIRECT_DEAL_TYPE = 0
+    DELIVERY_DEAL_TYPE = 1
+
+    DEALING_TYPE = (
+        (DIRECT_DEAL_TYPE, 'direct'),
+        (DELIVERY_DEAL_TYPE, 'delivery'),
+    )
+
     owner = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -39,4 +47,11 @@ class Auction(SoftDeleteModel):
     end_at = models.DateTimeField(
         verbose_name='경매 종료 일시',
         null=True,
+    )
+    dealing_type = models.IntegerField(
+        verbose_name='거래 방법',
+        null=False,
+        choices=DEALING_TYPE,
+        default=DIRECT_DEAL_TYPE,
+        db_index=True,
     )
