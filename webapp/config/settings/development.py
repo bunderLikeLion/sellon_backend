@@ -6,6 +6,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 PROJECT_DIR = environ.Path(__file__) - 3
 
+INSTALLED_APPS += [
+    'django_extensions'
+]
+
 DATABASES = (
     {
         'default': {
