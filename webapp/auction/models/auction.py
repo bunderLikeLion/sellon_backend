@@ -52,6 +52,6 @@ class Auction(SoftDeleteModel):
         verbose_name='거래 방법',
         null=False,
         choices=DEALING_TYPE,
-        default=0,
+        default=DIRECT_DEAL_TYPE,
         db_index=True,
     )
