@@ -1,6 +1,7 @@
 from drf_writable_nested.serializers import WritableNestedModelSerializer
+from rest_framework import serializers
 
-from product.models import Product
+from product.models import Product, ProductCategory
 from user.serializers import UserAbstractSerializer
 from file_manager.serializers import ImageSerializer
 
@@ -33,3 +34,9 @@ class ProductSerializer(WritableNestedModelSerializer):
             'created_at',
             'updated_at',
         ]
+
+
+class ProductCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductCategory
+        fields = ['id', 'name']
