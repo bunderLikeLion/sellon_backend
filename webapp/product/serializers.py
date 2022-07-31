@@ -8,7 +8,13 @@ from file_manager.serializers import ImageSerializer
 
 class ProductSerializer(WritableNestedModelSerializer):
     user = UserAbstractSerializer(read_only=True)
-    thumbnail = ImageSerializer()
+    thumbnail = ImageSerializer(
+        error_messages={
+            'required': '썸네일을 첨부해주세요.',
+            'blank': '썸네일을 첨부해주세요.',
+            'empty': '썸네일을 첨부해주세요.',
+        }
+    )
 
     class Meta:
         model = Product
@@ -34,6 +40,14 @@ class ProductSerializer(WritableNestedModelSerializer):
             'created_at',
             'updated_at',
         ]
+        extra_kwargs = {
+            'name': {
+                'error_messages': {
+                    'required': '상품명을 입력해주세요.',
+                    'blank': '상품명을 입력해주세요.',
+                }
+            },
+        }
 
 
 class ProductCategorySerializer(serializers.ModelSerializer):

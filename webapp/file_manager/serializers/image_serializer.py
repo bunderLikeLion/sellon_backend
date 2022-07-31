@@ -6,7 +6,16 @@ from user.serializers import UserAbstractSerializer
 
 class ImageSerializer(serializers.ModelSerializer):
     uploader = UserAbstractSerializer(read_only=True)
-    file = serializers.ImageField(required=True, use_url=True)
+    file = serializers.ImageField(
+        required=True,
+        use_url=True,
+        error_messages={
+            'required': '이미지를 첨부해주세요.',
+            'blank': '이미지를 첨부해주세요.',
+            'empty': '이미지를 첨부해주세요.',
+            'invalid': '이미지를 첨부해주세요.',
+        }
+    )
 
     class Meta:
         model = Image
