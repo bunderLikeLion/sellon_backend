@@ -1,10 +1,10 @@
 from django.db import models
-from config.models import BaseModel
+from config.models import SoftDeleteModel
 from product.models.product import Product
 from product.models.product_group import ProductGroup
 
 
-class Dealing(BaseModel):
+class Dealing(SoftDeleteModel):
 
     class Meta:
         db_table = 'dealings'
@@ -18,13 +18,13 @@ class Dealing(BaseModel):
 
     product = models.ForeignKey(
         Product,
-        on_delete=models.CASCADE(),
+        on_delete=models.CASCADE,
         blank=True,
         verbose_name='물품'
     )
     product_group = models.ForeignKey(
         ProductGroup,
-        on_delete=models.CASCADE(),
+        on_delete=models.CASCADE,
         blank=True,
         verbose_name='물품 그룹'
     )
