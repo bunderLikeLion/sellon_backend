@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e35649bee6b66a23751c42bfe8913d039c6fdeda7b93b80a4b3daa7428c131a8"
+            "sha256": "2ae8c8016df7574988bbb3e08c2281b2c858f90c2665bcf21a708d3912460b9b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -203,6 +203,14 @@
             ],
             "index": "kakao",
             "version": "==3.3.0"
+        },
+        "django-jazzmin": {
+            "hashes": [
+                "sha256:2ee5ea548e9d5d6cf6495025d006b063ecae84702304eb90c9c5ef37ba99078a",
+                "sha256:6b9f9951eee41f60793a0d2f6f3d57213bd5605ddda7a106acb2bcdec4ef124e"
+            ],
+            "index": "kakao",
+            "version": "==2.5.0"
         },
         "djangorestframework": {
             "hashes": [
@@ -470,9 +478,7 @@
             "version": "==2.21"
         },
         "pyjwt": {
-            "extras": [
-                "crypto"
-            ],
+            "extras": [],
             "hashes": [
                 "sha256:72d1d253f32dbd4f5c88eaf1fdc62f3a19f676ccbadb9dbc5d07e951b2b26daf",
                 "sha256:d42908208c699b3b973cbeb01a969ba6a96c821eefb1c5bfe4c390c01d67abba"
