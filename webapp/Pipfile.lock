@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "49de817b5fd4622fab1d82f02e677b297e2ec8fbc9433e9647ebf14c3310dfeb"
+            "sha256": "7643c1435a0d153e2ffeaa53df7a8bf3109cd69dd01cd0640d4455a9fc32dbea"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -203,6 +203,14 @@
             ],
             "index": "kakao",
             "version": "==3.2.0"
+        },
+        "django-filter": {
+            "hashes": [
+                "sha256:ed429e34760127e3520a67f415bec4c905d4649fbe45d0d6da37e6ff5e0287eb",
+                "sha256:ed473b76e84f7e83b2511bb2050c3efb36d135207d0128dfe3ae4b36e3594ba5"
+            ],
+            "index": "kakao",
+            "version": "==22.1"
         },
         "django-guid": {
             "hashes": [
@@ -486,7 +494,9 @@
             "version": "==2.21"
         },
         "pyjwt": {
-            "extras": [],
+            "extras": [
+                "crypto"
+            ],
             "hashes": [
                 "sha256:72d1d253f32dbd4f5c88eaf1fdc62f3a19f676ccbadb9dbc5d07e951b2b26daf",
                 "sha256:d42908208c699b3b973cbeb01a969ba6a96c821eefb1c5bfe4c390c01d67abba"

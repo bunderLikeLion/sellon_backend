@@ -52,6 +52,7 @@ PACKAGE_APPS = [
     # django-cors-header
     'corsheaders',
     'django_guid',
+    'django_filters',
 ]
 
 PROJECT_APPS = [
@@ -161,7 +162,8 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'config.pagination.PageNumberPagination'
+    'DEFAULT_PAGINATION_CLASS': 'config.pagination.PageNumberPagination',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 REST_USE_JWT = True

@@ -1,8 +1,11 @@
 from rest_framework import serializers
-from product.models import ProductGroup
+
+from auction.models import Auction
+from product.models import ProductGroup, Product
+
 from user.serializers import UserAbstractSerializer
 from auction.serializers import AuctionSerializer
-from auction.models import Auction
+from .product_serializer import ProductSerializer
 
 
 class ProductGroupSerializer(serializers.ModelSerializer):
@@ -12,6 +15,13 @@ class ProductGroupSerializer(serializers.ModelSerializer):
         source='auction',
         queryset=Auction.objects.all(),
         write_only=True,
+    )
+    products = ProductSerializer(read_only=True, many=True)
+    product_ids = serializers.PrimaryKeyRelatedField(
+        source='products',
+        many=True,
+        write_only=True,
+        queryset=Product.objects.all(),
     )
 
     class Meta:
@@ -23,4 +33,14 @@ class ProductGroupSerializer(serializers.ModelSerializer):
             'auction',
             'money',
             'description',
+            'products',
+            'product_ids',
         ]
+        extra_kwargs = {
+            'auction_id': {
+                'required': True,
+            },
+            'products': {
+                'required': True,
+            }
+        }

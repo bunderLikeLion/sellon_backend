@@ -31,3 +31,7 @@ class ProductGroup(SoftDeleteModel):
         max_length=200,
         blank=True,
     )
+    products = models.ManyToManyField(
+        'product.Product',
+        through='product.ProductGroupItem'
+    )
