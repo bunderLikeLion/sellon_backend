@@ -16,7 +16,7 @@ class Auction(SoftDeleteModel):
     DIRECT_DEAL_TYPE = 0
     DELIVERY_DEAL_TYPE = 1
 
-    DEALING_TYPE = (
+    DEALING_TYPES = (
         (DIRECT_DEAL_TYPE, 'direct'),
         (DELIVERY_DEAL_TYPE, 'delivery'),
     )
@@ -51,7 +51,7 @@ class Auction(SoftDeleteModel):
     dealing_type = models.IntegerField(
         verbose_name='거래 방법',
         null=False,
-        choices=DEALING_TYPE,
+        choices=DEALING_TYPES,
         default=DIRECT_DEAL_TYPE,
         db_index=True,
     )

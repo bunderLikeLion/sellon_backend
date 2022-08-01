@@ -14,7 +14,7 @@ class AuctionViewSet(ModelViewSet):
 
     @transaction.atomic
     def perform_create(self, serializer):
-        instance = serializer.save(user=self.request.user)
+        instance = serializer.save(owner=self.request.user)
         instance.product.status = Product.IN_AUCTION_STATUS
         instance.save()
         return instance
