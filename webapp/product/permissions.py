@@ -33,7 +33,7 @@ class IsProductGroupEditableOrDestroyable(permissions.BasePermission):
         return self.has_editable_permission(request, obj) and not self.already_using_product_in_other_auction(request, obj)
 
     def destroyable(self, request, obj):
-        return self.has_editable_permission(request, obj) and timezone.now() < obj.auction.end_at
+        return self.has_editable_permission(request, obj) and (not obj.auction.end_at or timezone.now() < obj.auction.end_at)
 
     def has_editable_permission(self, request, obj):
         return request.user and (request.user == obj.user or request.user.is_staff)

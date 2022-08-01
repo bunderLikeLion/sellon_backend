@@ -1,16 +1,19 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save, post_delete
 from django.dispatch import receiver
 
 from product.models import ProductGroup
 
 
-@receiver(post_save, sender=ProductGroup)
-def product_group_post_save(sender, **kwargs):
-    product_group = kwargs['instance']
-    auction = product_group.auction
-    if product_group.deleted_at is None:
+@receiver(pre_save, sender=ProductGroup)
+def product_group_pre_save(sender, instance: ProductGroup, **kwargs):
+    if instance.id is None:
+        auction = instance.auction
         auction.product_groups_count += 1
-    else:
-        auction.product_groups_count -= 1
+        auction.save()
 
+
+@receiver(post_delete, sender=ProductGroup)
+def product_group_post_delete(sender, instance: ProductGroup, **kwargs):
+    auction = instance.auction
+    auction.product_groups_count -= 1
     auction.save()

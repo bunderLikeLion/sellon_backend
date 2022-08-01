@@ -1,9 +1,9 @@
 from django.db import models
 
-from config.models import SoftDeleteModel
+from config.models import BaseModel
 
 
-class ProductCategory(SoftDeleteModel):
+class ProductCategory(BaseModel):
 
     class Meta:
         db_table = 'product_categories'

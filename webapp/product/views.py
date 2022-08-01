@@ -44,17 +44,13 @@ class ProductGroupViewSet(ModelViewSet):
         # NOTE: 그룹에 올린 상품은 AUCTION에 올린 상태가 됩니다.
         # TODO: 이거 ProductGroupItem 모델에서 처리
         # TODO: Auction 모델에 finish? 메서드 만들고 거기서 종료처리시키기
-        instance.products.update(status=Product.IN_AUCTION_STATUS)
-
         return instance
 
     def perform_update(self, serializer):
         # TODO: 수정했을 때, product status가 적절히 다 바뀌어야 함.
-        print(self.request.data)
         return serializer.save()
 
     @transaction.atomic
     def perform_destroy(self, instance):
-        # NOTE: 그룹에 올렸던 상품을 다시 HIDDEN_STATUS로 변경합니다.
-        instance.products.update(status=Product.HIDDEN_STATUS)
+        # TODO: model에서 그룹에 올렸던 상품을 다시 HIDDEN_STATUS로 변경합니다.
         instance.delete()

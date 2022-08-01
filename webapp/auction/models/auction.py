@@ -3,12 +3,12 @@ from django.utils.timezone import now
 from django.core.exceptions import ValidationError
 
 from django.db import models
-from config.models import SoftDeleteModel
+from config.models import BaseModel
 from product.models import Product
 from user.models import User
 
 
-class Auction(SoftDeleteModel):
+class Auction(BaseModel):
     class Meta:
         db_table = 'auctions'
         verbose_name = 'Auction'
@@ -91,10 +91,13 @@ class Auction(SoftDeleteModel):
 
     @transaction.atomic
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        if self.deleted_at is None:
-            self.product.status = Product.IN_AUCTION_STATUS
-            self.product.save()
-        else:
-            self.product.status = Product.HIDDEN_STATUS
-            self.product.save()
+        self.product.status = Product.IN_AUCTION_STATUS
+        self.product.save()
         super().save(force_insert, force_update, using, update_fields)
+
+    @transaction.atomic
+    def delete(self, using=None, keep_parents=False):
+        self.product.status = Product.HIDDEN_STATUS
+        self.product.save()
+
+        super().save(using, keep_parents)

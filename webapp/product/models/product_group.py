@@ -1,10 +1,13 @@
-from auction.models.auction import Auction
 from django.db import models
-from config.models import SoftDeleteModel
+from django.db import transaction
+
+from auction.models.auction import Auction
+from config.models import BaseModel
 from user.models import User
+from .product import Product
 
 
-class ProductGroup(SoftDeleteModel):
+class ProductGroup(BaseModel):
 
     class Meta:
         db_table = 'product_groups'
@@ -35,3 +38,12 @@ class ProductGroup(SoftDeleteModel):
         'product.Product',
         through='product.ProductGroupItem'
     )
+
+    @transaction.atomic
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        super().save(force_insert, force_update, using, update_fields)
+
+    @transaction.atomic
+    def delete(self, using=None, keep_parents=False):
+        self.products.update(status=Product.HIDDEN_STATUS)
+        super().delete(using, keep_parents)
