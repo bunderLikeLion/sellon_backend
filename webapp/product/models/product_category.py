@@ -28,3 +28,6 @@ class ProductCategory(SoftDeleteModel):
         blank=False,
         default=0,
     )
+
+    def __str__(self) -> str:
+        return str(self.name)
