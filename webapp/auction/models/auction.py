@@ -100,4 +100,4 @@ class Auction(BaseModel):
         self.product.status = Product.HIDDEN_STATUS
         self.product.save()
 
-        super().save(using, keep_parents)
+        super().delete(using, keep_parents)
