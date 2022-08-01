@@ -28,7 +28,7 @@ docker exec -it nginx-dev-container nginx -s reload
 
 ### 로그 보기
 ```
-## 전체 
+## 전체
 docker-compose logs -f
 
 ## webapp 로그 보기
@@ -43,4 +43,10 @@ docker-compose run --rm webapp python manage.py createsuperuser
 ### 마이그레이션 생성
 ```
 docker-compose run --rm webapp python manage.py makemigrations
+```
+
+### erd 생성
+```
+pipenv install --dev
+python ./manage.py graph_models user product file_manager auction dealing --pydot -a -o erd.png
 ```

@@ -7,6 +7,6 @@ class IntegerChoiceField(serializers.ChoiceField):
 
     def to_internal_value(self, data):
         for key, val in self._choices.items():
-            if val == data:
+            if val == data or str(key) == data:
                 return key
         self.fail('없는 항목입니다.', input=data)
