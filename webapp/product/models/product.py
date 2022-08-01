@@ -15,10 +15,10 @@ class Product(BaseModel):
     DEALED_STATUS = 3
 
     QUALITY_CHOICES = (
-        (1, 'very poor'),
+        (1, 'very_poor'),
         (2, 'poor'),
         (3, 'good'),
-        (4, 'very good'),
+        (4, 'very_good'),
         (5, 'excellent'),
     )
 
