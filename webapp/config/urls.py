@@ -47,4 +47,5 @@ urlpatterns = [
     path('images/', include('file_manager.urls'), name='images'),
     path('products/', include('product.urls'), name='products'),
     path('auctions/', include('auction.urls'), name='auctions'),
+    path('dealings/', include('dealing.urls'), name='dealings'),
 ]
