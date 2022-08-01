@@ -57,6 +57,11 @@ class Auction(SoftDeleteModel):
         default=DIRECT_DEAL_TYPE,
         db_index=True,
     )
+    product_groups_count = models.IntegerField(
+        verbose_name='참여자 수',
+        null=True,
+        default=0,
+    )
 
     def clean(self):
         previous_object = self.__class__.objects.filter(id=self.id).first()
