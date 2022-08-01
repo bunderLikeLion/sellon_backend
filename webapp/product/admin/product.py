@@ -10,6 +10,7 @@ class ProductAdmin(admin.ModelAdmin):
         'name',
         'quality',
         'quantity',
+        'product_category',
         'status',
     )
     list_filter = (

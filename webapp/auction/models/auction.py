@@ -94,7 +94,7 @@ class Auction(SoftDeleteModel):
         if self.deleted_at is None:
             self.product.status = Product.IN_AUCTION_STATUS
             self.product.save()
-            super().save(force_insert, force_update, using, update_fields)
         else:
             self.product.status = Product.HIDDEN_STATUS
             self.product.save()
+        super().save(force_insert, force_update, using, update_fields)
