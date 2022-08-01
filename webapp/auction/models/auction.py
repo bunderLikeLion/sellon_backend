@@ -1,4 +1,6 @@
+from django.db import transaction
 from django.utils.timezone import now
+from django.core.exceptions import ValidationError
 
 from django.db import models
 from config.models import SoftDeleteModel
@@ -7,7 +9,6 @@ from user.models import User
 
 
 class Auction(SoftDeleteModel):
-
     class Meta:
         db_table = 'auctions'
         verbose_name = 'Auction'
@@ -47,6 +48,7 @@ class Auction(SoftDeleteModel):
     end_at = models.DateTimeField(
         verbose_name='경매 종료 일시',
         null=True,
+        blank=True,
     )
     dealing_type = models.IntegerField(
         verbose_name='거래 방법',
@@ -55,3 +57,39 @@ class Auction(SoftDeleteModel):
         default=DIRECT_DEAL_TYPE,
         db_index=True,
     )
+
+    def clean(self):
+        previous_object = self.__class__.objects.filter(id=self.id).first()
+
+        self.validate_product(previous_object)
+        self.validate_owner(previous_object)
+
+    def validate_product(self, previous_object):
+        if previous_object is not None:
+            if previous_object.product == self.product:
+                return
+            else:
+                raise ValidationError({'product': '경매장에 등록한 물품은 변경할 수 없습니다.'})
+
+        if self.product.status == Product.IN_AUCTION_STATUS:
+            raise ValidationError({'product': '이미 경매장에 등록한 상품입니다.'})
+
+        if self.product.status == Product.DEALING_STATUS:
+            raise ValidationError({'product': '거래 진행중인 상품입니다.'})
+
+        if self.product.status == Product.DEALED_STATUS:
+            raise ValidationError({'product': '거래 완료한 상품입니다.'})
+
+    def validate_owner(self, previous_object):
+        if previous_object is not None and previous_object.owner != self.owner:
+            raise ValidationError({'owner': '경매장을 연 사람은 변경할 수 없습니다.'})
+
+    @transaction.atomic
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.deleted_at is None:
+            self.product.status = Product.IN_AUCTION_STATUS
+            self.product.save()
+            super().save(force_insert, force_update, using, update_fields)
+        else:
+            self.product.status = Product.HIDDEN_STATUS
+            self.product.save()
