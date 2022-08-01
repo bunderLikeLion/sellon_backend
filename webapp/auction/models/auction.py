@@ -70,19 +70,25 @@ class Auction(BaseModel):
         self.validate_owner(previous_object)
 
     def validate_product(self, previous_object):
+        product = self.product
+        if isinstance(product, int):
+            product = Product.objects.find(pk=self.product)
+
         if previous_object is not None:
-            if previous_object.product == self.product:
+
+            if previous_object.product == product:
+
                 return
             else:
                 raise ValidationError({'product': '경매장에 등록한 물품은 변경할 수 없습니다.'})
 
-        if self.product.status == Product.IN_AUCTION_STATUS:
+        if product.status == Product.IN_AUCTION_STATUS:
             raise ValidationError({'product': '이미 경매장에 등록한 상품입니다.'})
 
-        if self.product.status == Product.DEALING_STATUS:
+        if product.status == Product.DEALING_STATUS:
             raise ValidationError({'product': '거래 진행중인 상품입니다.'})
 
-        if self.product.status == Product.DEALED_STATUS:
+        if product.status == Product.DEALED_STATUS:
             raise ValidationError({'product': '거래 완료한 상품입니다.'})
 
     def validate_owner(self, previous_object):
@@ -91,6 +97,7 @@ class Auction(BaseModel):
 
     @transaction.atomic
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.clean()
         self.product.status = Product.IN_AUCTION_STATUS
         self.product.save()
         super().save(force_insert, force_update, using, update_fields)
