@@ -87,6 +87,11 @@ class Product(BaseModel):
         on_delete=models.SET_NULL,
         verbose_name='썸네일',
     )
+    images = models.ManyToManyField(
+        'file_manager.Image',
+        through='file_manager.ProductImage',
+        related_name='product_images',
+    )
     dealing_at = models.DateTimeField(
         verbose_name='거래 시작 일시',
         null=True,
