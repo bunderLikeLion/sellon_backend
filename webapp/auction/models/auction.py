@@ -34,6 +34,13 @@ class Auction(BaseModel):
         null=False,
         verbose_name='물품',
     )
+    title = models.CharField(
+        verbose_name='경매 제목',
+        null=False,
+        blank=True,
+        max_length=200,
+        default='',
+    )
     description = models.CharField(
         verbose_name='경매 설명',
         null=False,
