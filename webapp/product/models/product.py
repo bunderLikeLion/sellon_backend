@@ -99,4 +99,4 @@ class Product(BaseModel):
     )
 
     def __str__(self) -> str:
-        return str(self.name)
+        return f'[{self.id}] {self.name}'

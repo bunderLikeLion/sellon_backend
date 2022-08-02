@@ -1,5 +1,6 @@
 from django.db import models
 from django.db import transaction
+from django.forms import ValidationError
 
 from auction.models.auction import Auction
 from config.models import BaseModel
@@ -13,6 +14,12 @@ class ProductGroup(BaseModel):
         db_table = 'product_groups'
         verbose_name = 'ProductGroup'
         verbose_name_plural = 'ProductGroups'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'auction'],
+                name='unique_product_group_in_auction_by_user',
+            )
+        ]
 
     user = models.ForeignKey(
         User,
@@ -39,11 +46,29 @@ class ProductGroup(BaseModel):
         through='product.ProductGroupItem'
     )
 
-    @transaction.atomic
+    @property
+    def auction_obj(self):
+        return Auction.objects.find(pk=self.auction) if isinstance(self.auction, int) else self.auction
+
+    def validate_already_ended_acution(self):
+        if self.auction_obj.is_ended:
+            raise ValidationError({'auction': '종료된 경매장에 등록한 상품 목록은 수정할 수 없습니다.'})
+
+    def validate_self_participating(self):
+        if self.auction_obj.owner == self.user:
+            raise ValidationError({'auction': '자신이 만든 경매장에는 참여할 수 없습니다.'})
+
+    def clean(self):
+        self.validate_self_participating()
+        self.validate_already_ended_acution()
+
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.clean()
         super().save(force_insert, force_update, using, update_fields)
 
     @transaction.atomic
     def delete(self, using=None, keep_parents=False):
+        self.validate_already_ended_acution()
+
         self.products.update(status=Product.HIDDEN_STATUS)
         super().delete(using, keep_parents)

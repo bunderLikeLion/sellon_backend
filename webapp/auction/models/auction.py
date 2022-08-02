@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import transaction
 from django.utils.timezone import now
 from django.core.exceptions import ValidationError
@@ -70,6 +71,17 @@ class Auction(BaseModel):
         default=0,
     )
 
+    @property
+    def product_obj(self):
+        return Product.objects.find(pk=self.product) if isinstance(self.product, int) else self.product
+
+    @property
+    def is_ended(self):
+        return self.end_at and self.end_at <= timezone.now()
+
+    def __str__(self) -> str:
+        return f'[{self.id}] {self.title}'
+
     def clean(self):
         previous_object = self.__class__.objects.filter(id=self.id).first()
 
@@ -77,14 +89,10 @@ class Auction(BaseModel):
         self.validate_owner(previous_object)
 
     def validate_product(self, previous_object):
-        product = self.product
-        if isinstance(product, int):
-            product = Product.objects.find(pk=self.product)
+        product = self.product_obj
 
         if previous_object is not None:
-
             if previous_object.product == product:
-
                 return
             else:
                 raise ValidationError({'product': '경매장에 등록한 물품은 변경할 수 없습니다.'})
@@ -97,6 +105,9 @@ class Auction(BaseModel):
 
         if product.status == Product.DEALED_STATUS:
             raise ValidationError({'product': '거래 완료한 상품입니다.'})
+
+        if product.user != self.owner:
+            raise ValidationError({'product': '다른 유저의 상품을 등록할 수 없습니다.'})
 
     def validate_owner(self, previous_object):
         if previous_object is not None and previous_object.owner != self.owner:

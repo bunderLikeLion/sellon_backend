@@ -1,4 +1,5 @@
 from django.core.exceptions import PermissionDenied
+from django.db import IntegrityError
 from django.forms import ValidationError
 from django.http import Http404
 
@@ -33,6 +34,21 @@ def exception_handler(exc, context):
             headers['Retry-After'] = '%d' % exc.wait
         data = exc.message_dict
         return Response(data, status=422, headers=headers)
+    if isinstance(exc, IntegrityError):
+        headers = {}
+        if getattr(exc, 'auth_header', None):
+            headers['WWW-Authenticate'] = exc.auth_header
+        if getattr(exc, 'wait', None):
+            headers['Retry-After'] = '%d' % exc.wait
+        data = str(exc.args)
+
+        # FIXME: 나중에 unique constraints 관련 오류 핸들링 방식을 찾아보기
+
+        if 'unique_product_group_in_auction_by_user' in data:
+            data = {'auction': ['이미 참가하고 있는 경매장입니다.']}
+
+        return Response(data, status=422, headers=headers)
+
     if isinstance(exc, exceptions.APIException):
         headers = {}
         if getattr(exc, 'auth_header', None):
