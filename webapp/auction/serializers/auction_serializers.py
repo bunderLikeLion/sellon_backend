@@ -25,6 +25,7 @@ class AuctionSerializer(ModelSerializer):
         fields = [
             'id',
             'owner',
+            'title',
             'product_id',
             'product',
             'description',
@@ -36,6 +37,7 @@ class AuctionSerializer(ModelSerializer):
             'product_groups_count'
         ]
         read_only_fields = [
+            'product_groups_count',
             'created_at',
             'updated_at',
         ]
