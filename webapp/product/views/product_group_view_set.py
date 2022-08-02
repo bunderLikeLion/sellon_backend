@@ -13,11 +13,9 @@ class ProductGroupViewSet(ModelViewSet):
         IsAuthenticated,
         IsProductGroupEditableOrDestroyable,
     ]
+    queryset = ProductGroup.objects.all().select_related('user')
     filterset_fields = ['auction', 'user']
     # TODO: Auction 모델에 finish? 메서드 만들고 그거 이용해서 종료처리시키기
-
-    def get_queryset(self):
-        return ProductGroup.objects.all()
 
     @transaction.atomic
     def perform_create(self, serializer):
