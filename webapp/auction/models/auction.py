@@ -95,23 +95,23 @@ class Auction(BaseModel):
             if previous_object.product == product:
                 return
             else:
-                raise ValidationError({'product': '경매장에 등록한 물품은 변경할 수 없습니다.'})
+                raise ValidationError({'product': '경매장에 등록한 물품은 변경할 수 없습니다'})
 
         if product.status == Product.IN_AUCTION_STATUS:
-            raise ValidationError({'product': '이미 경매장에 등록한 상품입니다.'})
+            raise ValidationError({'product': '이미 경매장에 등록한 상품입니다'})
 
         if product.status == Product.DEALING_STATUS:
-            raise ValidationError({'product': '거래 진행중인 상품입니다.'})
+            raise ValidationError({'product': '거래 진행중인 상품입니다'})
 
         if product.status == Product.DEALED_STATUS:
-            raise ValidationError({'product': '거래 완료한 상품입니다.'})
+            raise ValidationError({'product': '거래 완료한 상품입니다'})
 
         if product.user != self.owner:
-            raise ValidationError({'product': '다른 유저의 상품을 등록할 수 없습니다.'})
+            raise ValidationError({'product': '다른 유저의 상품을 등록할 수 없습니다'})
 
     def validate_owner(self, previous_object):
         if previous_object is not None and previous_object.owner != self.owner:
-            raise ValidationError({'owner': '경매장을 연 사람은 변경할 수 없습니다.'})
+            raise ValidationError({'owner': '경매장을 연 사람은 변경할 수 없습니다'})
 
     @transaction.atomic
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):

@@ -52,11 +52,11 @@ class ProductGroup(BaseModel):
 
     def validate_already_ended_acution(self):
         if self.auction_obj.is_ended:
-            raise ValidationError({'auction': '종료된 경매장에 등록한 상품 목록은 수정할 수 없습니다.'})
+            raise ValidationError({'auction': '종료된 경매장에 등록한 상품 목록은 수정할 수 없습니다'})
 
     def validate_self_participating(self):
         if self.auction_obj.owner == self.user:
-            raise ValidationError({'auction': '자신이 만든 경매장에는 참여할 수 없습니다.'})
+            raise ValidationError({'auction': '자신이 만든 경매장에는 참여할 수 없습니다'})
 
     def clean(self):
         self.validate_self_participating()

@@ -45,7 +45,7 @@ def exception_handler(exc, context):
         # FIXME: 나중에 unique constraints 관련 오류 핸들링 방식을 찾아보기
 
         if 'unique_product_group_in_auction_by_user' in data:
-            data = {'auction': ['이미 참가하고 있는 경매장입니다.']}
+            data = {'auction': ['이미 참가하고 있는 경매장입니다']}
 
         return Response(data, status=422, headers=headers)
 
