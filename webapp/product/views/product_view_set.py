@@ -13,7 +13,7 @@ class ProductViewSet(ModelViewSet):
         IsAuthenticated,
         IsProductEditableOrDestroyable,
     ]
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().select_related('user', 'product_category', 'thumbnail')
     filterset_fields = ['product_category', 'quantity', 'quality', 'status']
 
     def list(self, request, *args, **kwargs):
