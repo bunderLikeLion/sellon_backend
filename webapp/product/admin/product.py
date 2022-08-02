@@ -7,6 +7,7 @@ class ProductAdmin(admin.ModelAdmin):
     '''Admin View for Product'''
 
     list_display = (
+        'id',
         'name',
         'user',
         'quality',
