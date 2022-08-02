@@ -14,6 +14,7 @@ class AuctionAdmin(admin.ModelAdmin):
 
     list_display = (
         'id',
+        'title',
         'product',
         'description',
         'start_at',
@@ -25,7 +26,9 @@ class AuctionAdmin(admin.ModelAdmin):
     )
     raw_id_fields = ()
     readonly_fields = ()
-    search_fields = ()
+    search_fields = (
+        'title',
+    )
     ordering = (
         'created_at',
         'updated_at',
