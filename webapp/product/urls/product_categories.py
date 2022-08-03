@@ -1,5 +1,5 @@
 from django.urls import path
-from product.views.product_categories_view_set import ProductCategoryListAPIView, ProductCategoryRetrieveAPIView
+from product.views.product_categories_view import ProductCategoryListAPIView, ProductCategoryRetrieveAPIView
 
 
 urlpatterns = [

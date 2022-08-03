@@ -1,3 +1,3 @@
 from .product_view_set import ProductViewSet
-from .product_categories_view_set import ProductCategoryListAPIView
+from .product_categories_view import ProductCategoryListAPIView, ProductCategoryRetrieveAPIView
 from .product_group_view_set import ProductGroupViewSet
