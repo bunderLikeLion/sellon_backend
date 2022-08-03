@@ -97,3 +97,6 @@ class Product(BaseModel):
         null=True,
         blank=True,
     )
+
+    def __str__(self) -> str:
+        return f'[{self.id}] {self.name}'

@@ -23,7 +23,7 @@ class ProductSerializer(WritableNestedModelSerializer):
         write_only=True,
     )
     quality = IntegerChoiceField(choices=Product.QUALITY_CHOICES)
-    status = IntegerChoiceField(choices=Product.STATUS_CHOICES)
+    status = IntegerChoiceField(choices=Product.STATUS_CHOICES, read_only=True)
 
     class Meta:
         model = Product

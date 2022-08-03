@@ -60,6 +60,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         return self.is_superuser
 
+    def __str__(self) -> str:
+        return f'[{self.id}] {self.username} ({self.email})'
+
 
 class Inventory(BaseModel):
 

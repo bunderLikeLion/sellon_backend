@@ -38,7 +38,6 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_filters',
 ]
 
 PACKAGE_APPS = [
@@ -53,6 +52,7 @@ PACKAGE_APPS = [
     # django-cors-header
     'corsheaders',
     'django_guid',
+    'django_filters',
 ]
 
 PROJECT_APPS = [
@@ -163,7 +163,8 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'config.pagination.PageNumberPagination',
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'EXCEPTION_HANDLER': 'config.exceptions.api_exception_handler',
 }
 
 REST_USE_JWT = True

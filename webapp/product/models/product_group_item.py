@@ -1,10 +1,11 @@
 from django.db import models
-from config.models import SoftDeleteModel
+
+from config.models import BaseModel
 from product.models import Product
 from .product_group import ProductGroup
 
 
-class ProductGroupItem(SoftDeleteModel):
+class ProductGroupItem(BaseModel):
 
     class Meta:
         db_table = 'product_group_items'
