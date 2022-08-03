@@ -1,12 +1,18 @@
 from django.utils import timezone
 from django.db import transaction
+from django.db.models import Q
 from django.utils.timezone import now
 from django.core.exceptions import ValidationError
 
 from django.db import models
-from config.models import BaseModel
+from config.models import BaseModel, ModelManager
 from product.models import Product
 from user.models import User
+
+
+class AuctionModelManger(ModelManager):
+    def in_progress(self):
+        return self.get_queryset().filter(Q(end_at__lte=now()) | Q(end_at__isnull=True))
 
 
 class Auction(BaseModel):
@@ -22,6 +28,8 @@ class Auction(BaseModel):
         (DIRECT_DEAL_TYPE, 'direct'),
         (DELIVERY_DEAL_TYPE, 'delivery'),
     )
+
+    objects = AuctionModelManger()
 
     owner = models.ForeignKey(
         User,
