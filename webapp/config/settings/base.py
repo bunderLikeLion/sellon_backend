@@ -165,6 +165,12 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'config.pagination.PageNumberPagination',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'EXCEPTION_HANDLER': 'config.exceptions.api_exception_handler',
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FileUploadParser',
+    ]
 }
 
 REST_USE_JWT = True
