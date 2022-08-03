@@ -23,7 +23,7 @@ class ProductViewSet(ModelViewSet):
         """
         인벤토리에 물폼을 생성합니다.
         """
-        return super().create(self, request, args, kwargs)
+        return super().create(self, request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
         """
@@ -33,14 +33,14 @@ class ProductViewSet(ModelViewSet):
         - 자신과 거래하고 있는 물품
         - 자신과 거래 완료한 물품
         """
-        return super().retrieve(self, request, args, kwargs)
+        return super().retrieve(self, request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
         """
         상품 정보를 수정합니다.
         - 자신의 물품인 경우만 수정 가능합니다.
         """
-        return super().update(self, request, args, kwargs)
+        return super().update(self, request, *args, **kwargs)
 
     def partial_update(self, request, *args, **kwargs):
         """
