@@ -14,7 +14,6 @@ class ProductAbstractSerializer(serializers.ModelSerializer):
         }
     )
 
-    quality = IntegerChoiceField(choices=Product.QUALITY_CHOICES)
     status = IntegerChoiceField(choices=Product.STATUS_CHOICES, read_only=True)
 
     class Meta:

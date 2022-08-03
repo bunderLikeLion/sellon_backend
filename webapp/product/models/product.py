@@ -1,5 +1,6 @@
 from django.db import models
 from config.models import BaseModel
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Product(BaseModel):
@@ -13,14 +14,6 @@ class Product(BaseModel):
     IN_AUCTION_STATUS = 1
     DEALING_STATUS = 2
     DEALED_STATUS = 3
-
-    QUALITY_CHOICES = (
-        (1, 'very_poor'),
-        (2, 'poor'),
-        (3, 'good'),
-        (4, 'very_good'),
-        (5, 'excellent'),
-    )
 
     STATUS_CHOICES = (
         (HIDDEN_STATUS, 'hidden'),
@@ -59,12 +52,18 @@ class Product(BaseModel):
         verbose_name='수량',
         null=False,
         default=1,
+        validators=[
+            MinValueValidator(1, message='수량은 1보다 커야 합니다.')
+        ],
     )
     quality = models.IntegerField(
         verbose_name='품질',
         null=False,
-        choices=QUALITY_CHOICES,
         default=3,
+        validators=[
+            MaxValueValidator(5, message='품질은 5보다 작아야 합니다.'),
+            MinValueValidator(1, message='품질은 1보다 커야 합니다.')
+        ],
         db_index=True,
     )
     status = models.IntegerField(
