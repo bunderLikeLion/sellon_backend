@@ -25,7 +25,7 @@ class ProductSerializer(WritableNestedModelSerializer):
     quality = IntegerChoiceField(choices=Product.QUALITY_CHOICES)
     status = IntegerChoiceField(choices=Product.STATUS_CHOICES, read_only=True)
 
-    images = ImageSerializer(many=True)
+    images = ImageSerializer(many=True, required=False)
 
     class Meta:
         model = Product
