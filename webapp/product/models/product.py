@@ -53,7 +53,7 @@ class Product(BaseModel):
         null=False,
         default=1,
         validators=[
-            MinValueValidator(1, message='수량은 1보다 커야 합니다.')
+            MinValueValidator(1, message='수량은 0보다 커야 합니다.')
         ],
     )
     quality = models.IntegerField(
@@ -61,8 +61,8 @@ class Product(BaseModel):
         null=False,
         default=3,
         validators=[
-            MaxValueValidator(5, message='품질은 5보다 작아야 합니다.'),
-            MinValueValidator(1, message='품질은 1보다 커야 합니다.')
+            MaxValueValidator(5, message='품질은 5까지 설정할 수 있습니다.'),
+            MinValueValidator(1, message='품질은 0보다 커야 합니다.')
         ],
         db_index=True,
     )
