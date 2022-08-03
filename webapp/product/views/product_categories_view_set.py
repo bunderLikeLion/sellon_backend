@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from product.models import ProductCategory
 from product.serializers import ProductCategorySerializer
@@ -14,3 +14,8 @@ class ProductCategoryListAPIView(ListAPIView):
         상품 카테고리 목록을 반환합니다.
         """
         return self.list(request, *args, **kwargs)
+
+
+class ProductCategoryRetrieveAPIView(RetrieveAPIView):
+    queryset = ProductCategory.objects.all()
+    serializer_class = ProductCategorySerializer
