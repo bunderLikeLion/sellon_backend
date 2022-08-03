@@ -1,2 +1,2 @@
 from .image import ImageAdmin
-from .imaging import ImagingAdmin
+from .product_image import ProductImageAdmin

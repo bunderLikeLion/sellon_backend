@@ -1,2 +1,2 @@
 from .image import Image
-from .imaging import Imaging
+from .product_image import ProductImage
