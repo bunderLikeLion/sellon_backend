@@ -16,9 +16,48 @@ class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all().select_related('user', 'product_category', 'thumbnail')
     filterset_fields = ['product_category', 'quantity', 'quality', 'status']
 
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        """
+        인벤토리에 물폼을 생성합니다.
+        """
+        return super().create(self, request, args, kwargs)
+
+    def retrieve(self, request, *args, **kwargs):
+        """
+        상품 정보를 반환합니다. 아래의 경우에만 조회 가능합니다.
+        - 자신의 인벤토리에 있는 물품(자신의 물품)
+        - 경매장에 올라와 있는 물품
+        - 자신과 거래하고 있는 물품
+        - 자신과 거래 완료한 물품
+        """
+        return super().retrieve(self, request, args, kwargs)
+
+    def update(self, request, *args, **kwargs):
+        """
+        상품 정보를 수정합니다.
+        - 자신의 물품인 경우만 수정 가능합니다.
+        """
+        return super().update(self, request, args, kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        """
+        상품 정보를 부분 수정합니다.
+        - 자신의 물품인 경우만 수정 가능합니다.
+        """
+        return super().partial_update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        """
+        상품을 삭제합니다.
+        """
+        return super().destroy(request, *args, **kwargs)
+
     def list(self, request, *args, **kwargs):
         """
-            자신의 인벤토리에 있는 물품 목록을 모두 반환합니다.
+        자신의 인벤토리에 있는 물품 목록을 모두 반환합니다.
         """
         queryset = self.filter_queryset(self.get_queryset().filter(user=self.request.user))
 
@@ -29,6 +68,3 @@ class ProductViewSet(ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
-    def perform_create(self, serializer):
-        return serializer.save(user=self.request.user)

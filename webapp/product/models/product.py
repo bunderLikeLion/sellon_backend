@@ -105,3 +105,5 @@ class Product(BaseModel):
 
     def __str__(self) -> str:
         return f'[{self.id}] {self.name}'
+
+    # TODO: 경매중인 물품, 거래 중인 물품, 거래 완료된 물품등인 경우 삭제할 수 없게 함.
