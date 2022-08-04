@@ -46,6 +46,7 @@ urlpatterns = [
     path('users/', include('user.urls'), name='users'),
     path('images/', include('file_manager.urls'), name='images'),
     path('products/', include('product.urls.product'), name='products'),
+    path('product_categories/', include('product.urls.product_categories'), name='product_categories'),
     path('product_groups/', include('product.urls.product_group'), name='product_groups'),
     path('auctions/', include('auction.urls'), name='auctions'),
     path('dealings/', include('dealing.urls'), name='dealings'),
