@@ -99,6 +99,9 @@ class Auction(BaseModel):
     def validate_product(self, previous_object):
         product = self.product_obj
 
+        if product.user != self.owner:
+            raise ValidationError({'product': '다른 유저의 상품을 등록할 수 없습니다'})
+
         if previous_object is not None:
             if previous_object.product == product:
                 return
@@ -113,9 +116,6 @@ class Auction(BaseModel):
 
         if product.status == Product.DEALED_STATUS:
             raise ValidationError({'product': '거래 완료한 상품입니다'})
-
-        if product.user != self.owner:
-            raise ValidationError({'product': '다른 유저의 상품을 등록할 수 없습니다'})
 
     def validate_owner(self, previous_object):
         if previous_object is not None and previous_object.owner != self.owner:
