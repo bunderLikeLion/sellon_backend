@@ -1,2 +1,3 @@
 from .auction_view_set import AuctionViewSet
 from .most_popular_api_view import MostPopularAPIView
+from .interested_auction_view_set import InterestedAuctionViewSet
