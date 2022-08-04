@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.filters import OrderingFilter
 
 from auction.models import Auction
 from auction.permissions import IsAuctionEditableOrDestroyable
@@ -9,6 +10,12 @@ class AuctionViewSet(ModelViewSet):
     queryset = Auction.objects.all().select_related('product', 'owner')
     serializer_class = AuctionSerializer
     permission_classes = [IsAuctionEditableOrDestroyable]
+    filter_backends = [OrderingFilter]
+    ordering_fields = [
+        'product_groups_count',
+        'created_at',
+        'updated_at'
+    ]
 
     def perform_create(self, serializer):
         return serializer.save(owner=self.request.user)

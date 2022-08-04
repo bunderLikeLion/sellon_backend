@@ -22,7 +22,6 @@ class ProductSerializer(WritableNestedModelSerializer):
         queryset=ProductCategory.objects.all(),
         write_only=True,
     )
-    quality = IntegerChoiceField(choices=Product.QUALITY_CHOICES)
     status = IntegerChoiceField(choices=Product.STATUS_CHOICES, read_only=True)
 
     images = ImageSerializer(many=True, required=False)
