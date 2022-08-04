@@ -3,7 +3,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from file_manager.models import Image
-from file_manager.serializers import ImageSerializer
+from file_manager.serializers.image_serializer import ImageSerializer
 
 
 class ImageCreateAPIView(CreateAPIView):

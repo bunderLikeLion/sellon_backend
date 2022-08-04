@@ -189,3 +189,8 @@ DJANGO_GUID = {
     'IGNORE_URLS': [],
     'UUID_LENGTH': 32,
 }
+
+# dj-rest settings
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'user.serializers.UserDetailsSerializer',
+}

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from config.serializers import IntegerChoiceField
-from file_manager.serializers import ImageSerializer
+from file_manager.serializers.image_serializer import ImageSerializer
 from product.models import Product
 
 
