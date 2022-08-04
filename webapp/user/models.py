@@ -4,8 +4,6 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-from config.models import BaseModel
-
 
 class UserManager(BaseUserManager):
     """ModelManager definition for User Model"""
@@ -53,6 +51,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     updated_at = models.DateTimeField(
         auto_now=True
     )  # 유저 레코드가 수정된 일자
+    avatar = models.ForeignKey(
+        'file_manager.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name='프로필 이미지',
+    )   # 유저 프로필 이미지
 
     objects = UserManager()
 
@@ -62,18 +67,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self) -> str:
         return f'[{self.id}] {self.username} ({self.email})'
-
-
-class Inventory(BaseModel):
-
-    class Meta:
-        db_table = 'inventories'
-        verbose_name = 'Inventory'
-        verbose_name_plural = 'Inventories'
-
-    user = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        verbose_name='유저'
-    )
