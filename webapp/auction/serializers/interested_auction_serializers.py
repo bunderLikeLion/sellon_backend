@@ -21,4 +21,5 @@ class InterestedAuctionSerializer(ModelSerializer):
             'id',
             'user',
             'auction_id',
+            'auction',
         ]
