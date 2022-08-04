@@ -4,5 +4,5 @@ from product.views.product_categories_view import ProductCategoryListAPIView, Pr
 
 urlpatterns = [
     path('', ProductCategoryListAPIView.as_view(), name='category-list'),
-    path('<int:pk>', ProductCategoryRetrieveAPIView.as_view(), name='category-retrieve'),
+    path('<int:pk/>', ProductCategoryRetrieveAPIView.as_view(), name='category-retrieve'),
 ]
