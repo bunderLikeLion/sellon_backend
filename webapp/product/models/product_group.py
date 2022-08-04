@@ -58,7 +58,14 @@ class ProductGroup(BaseModel):
         if self.auction_obj.owner == self.user:
             raise ValidationError({'auction': '자신이 만든 경매장에는 참여할 수 없습니다'})
 
+    def validate_editing_auction(self, previous_object):
+        if self.auction_obj.id != previous_object.auction.id:
+            raise ValidationError({'auction': '경매장 정보는 수정할 수 없습니다.'})
+
     def clean(self):
+        previous_object = self.__class__.objects.filter(id=self.id).first()
+
+        self.validate_editing_auction(previous_object)
         self.validate_self_participating()
         self.validate_already_ended_acution()
 
