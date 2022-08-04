@@ -4,8 +4,8 @@ from rest_framework.routers import DefaultRouter
 
 
 router = DefaultRouter()
-router.register('', AuctionViewSet, basename='auction')
 router.register('interested', InterestedAuctionViewSet, basename='interested_auction')
+router.register('', AuctionViewSet, basename='auction')
 
 urlpatterns = [
     path('popular/', MostPopularAPIView.as_view())

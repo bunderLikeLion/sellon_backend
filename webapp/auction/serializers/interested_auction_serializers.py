@@ -10,7 +10,6 @@ class InterestedAuctionSerializer(ModelSerializer):
     auction = AuctionSerializer(read_only=True)
     auction_id = serializers.PrimaryKeyRelatedField(
         source='auction',
-        many=True,
         queryset=Auction.objects.all(),
         write_only=True,
     )
