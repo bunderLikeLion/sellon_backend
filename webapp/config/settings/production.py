@@ -44,36 +44,30 @@ LOGGING = {
     },
     'handlers': {
         'sql_logger': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': SQL_LOG_FILE_PATH,
             'formatter': 'logFormat'
         },
         'file': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': LOG_FILE_PATH,
             'filters': ['correlation_id'],
             'formatter': 'logFormat'
         },
         'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'logFormat',
-            'filters': ['correlation_id'],
-        },
-        'django.server': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
-            'filters': ['correlation_id'],
             'formatter': 'logFormat',
+            'filters': ['correlation_id'],
         },
 
     },
     'loggers': {
         'django.db.backends': {
             'handlers': ['console', 'sql_logger'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'formatter': 'logFormat',
             'filters': ['correlation_id'],
         },
@@ -82,8 +76,8 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
-        'django.server': {
-            'handlers': ['django.server', 'file'],
+        'django': {
+            'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': False,
         },
