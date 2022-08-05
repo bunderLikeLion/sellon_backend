@@ -64,8 +64,8 @@ class ProductGroup(BaseModel):
 
     def clean(self):
         previous_object = self.__class__.objects.filter(id=self.id).first()
-
-        self.validate_editing_auction(previous_object)
+        if previous_object is not None:
+            self.validate_editing_auction(previous_object)
         self.validate_self_participating()
         self.validate_already_ended_acution()
 

@@ -36,6 +36,9 @@ class ProductGroupSerializer(serializers.ModelSerializer):
             'products',
             'product_ids',
         ]
+        read_only_fields = [
+            'auction'
+        ]
         extra_kwargs = {
             'auction_id': {
                 'required': True,

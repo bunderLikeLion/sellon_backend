@@ -19,13 +19,14 @@ class AuctionAdmin(admin.ModelAdmin):
         'description',
         'start_at',
         'end_at',
+        'product_groups_count',
     )
     list_filter = (
         'start_at',
         'end_at',
     )
     raw_id_fields = ()
-    readonly_fields = ()
+    readonly_fields = ('product_groups_count',)
     search_fields = (
         'title',
     )
