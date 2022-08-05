@@ -1,4 +1,5 @@
 from os.path import join
+
 from config.utils import create_file_if_not_exists
 from .base import *  # noqa pylint: disable=wildcard-import, unused-wildcard-import
 
@@ -7,7 +8,12 @@ ALLOWED_HOSTS = ['*']
 PROJECT_DIR = environ.Path(__file__) - 3
 
 INSTALLED_APPS += [
+    'silk',
     'django_extensions'
+]
+
+MIDDLEWARE += [
+    'silk.middleware.SilkyMiddleware',
 ]
 
 DATABASES = (
@@ -46,12 +52,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'sql_logger': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': SQL_LOG_FILE_PATH,
-            'formatter': 'logFormat'
-        },
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
@@ -74,12 +74,6 @@ LOGGING = {
 
     },
     'loggers': {
-        'django.db.backends': {
-            'handlers': ['console', 'sql_logger'],
-            'level': 'DEBUG',
-            'formatter': 'logFormat',
-            'filters': ['correlation_id'],
-        },
         'django_guid': {
             'handlers': ['console', 'file'],
             'level': 'INFO',
@@ -92,3 +86,6 @@ LOGGING = {
         },
     },
 }
+# SILKY_AUTHENTICATION settings
+SILKY_AUTHENTICATION = True
+SILKY_AUTHORISATION = True
