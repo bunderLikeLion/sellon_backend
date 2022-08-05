@@ -27,7 +27,7 @@ class Product(BaseModel):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name='물품 카테고리'
+        verbose_name='물품 카테고리',
     )
     user = models.ForeignKey(
         'user.User',

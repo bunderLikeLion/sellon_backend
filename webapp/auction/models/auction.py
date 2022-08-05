@@ -130,6 +130,8 @@ class Auction(BaseModel):
 
     @transaction.atomic
     def delete(self, using=None, keep_parents=False):
+        for product_group in self.product_groups.all():
+            product_group.products.update(status=Product.HIDDEN_STATUS)
         self.product.status = Product.HIDDEN_STATUS
         self.product.save()
 
