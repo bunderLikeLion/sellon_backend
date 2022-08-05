@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import filters
 from rest_framework.response import Response
 
 from product.permissions import IsProductEditableOrDestroyable
@@ -15,6 +16,9 @@ class ProductViewSet(ModelViewSet):
     ]
     queryset = Product.objects.all().select_related('user', 'product_category', 'thumbnail')
     filterset_fields = ['product_category', 'quantity', 'quality', 'status']
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['name', 'dealing_at', 'dealed_at', 'created_at', 'updated_at']
+    ordering = ['-updated_at']
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
