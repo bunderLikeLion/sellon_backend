@@ -41,6 +41,7 @@ DJANGO_APPS = [
 ]
 
 PACKAGE_APPS = [
+    'silk',
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
@@ -76,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_guid.middleware.guid_middleware',
+    'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
