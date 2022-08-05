@@ -158,7 +158,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'  # 이메일 인증 기능은 사용하지 �
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        'config.authentications.CsrfExemptSessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
