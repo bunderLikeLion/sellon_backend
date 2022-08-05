@@ -9,6 +9,12 @@ class InterestedAuction(BaseModel):
         db_table = 'interested_auctions'
         verbose_name = 'InterestedAuction'
         verbose_name_plural = 'InterestedAuctions'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'auction'],
+                name='unique_interested_auction_by_user',
+            )
+        ]
 
     user = models.ForeignKey(
         User,
