@@ -28,8 +28,10 @@ class ProductGroup(BaseModel):
     )
     auction = models.ForeignKey(
         Auction,
-        on_delete=models.CASCADE,
-        verbose_name='경매'
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name='경매',
+        related_name='product_groups',
     )
     money = models.IntegerField(
         verbose_name='추가 금액',
