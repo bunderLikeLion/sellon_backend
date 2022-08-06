@@ -1,8 +1,7 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 
-class BaseModelViewSet(ModelViewSet):
-
+class BaseViewSet(GenericViewSet):
     @property
     def current_user(self):
         return self.request.user
@@ -14,3 +13,7 @@ class BaseModelViewSet(ModelViewSet):
     @property
     def is_anonymous_user(self):
         return self.current_user.is_anonymous
+
+
+class BaseModelViewSet(ModelViewSet, BaseViewSet):
+    pass
