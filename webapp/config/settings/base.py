@@ -209,3 +209,7 @@ JAZZMIN_SETTINGS = {
     'site_header': 'Sellon',
     'site_brand': 'Sellon',
 }
+
+SWAGGER_SETTINGS = {
+    'DEFAULT_MODEL_RENDERING': 'example'
+}

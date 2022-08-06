@@ -1,7 +1,7 @@
-from django.db import models
+from django.db import models, transaction
 from django.forms import ValidationError
 from config.models import BaseModel
-from django.db import transaction
+from django.utils.timezone import now
 
 from auction.models import Auction
 from product.models.product import Product
@@ -69,6 +69,26 @@ class Dealing(BaseModel):
             return ProductGroup.objects.find(pk=self.product_group)
 
         return self.product_group
+
+    @transaction.atomic
+    def complete(self):
+        self.completed_at = now()
+        self.save()
+
+        self.product_obj.status = Product.DEALED_STATUS
+        self.product_obj.save()
+
+        self.product_group_obj.products.update(status=Product.DEALED_STATUS)
+
+    @transaction.atomic
+    def restart(self):
+        self.completed_at = None
+        self.save()
+
+        self.product_obj.status = Product.DEALING_STATUS
+        self.product_obj.save()
+
+        self.product_group_obj.products.update(status=Product.DEALING_STATUS)
 
     def clean(self):
         if self.auction_obj.product != self.product_obj or self.auction_obj != self.product_group_obj.auction:
