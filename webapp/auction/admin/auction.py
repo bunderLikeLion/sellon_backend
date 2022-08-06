@@ -1,5 +1,6 @@
 from auction.models import Auction
 from django.contrib import admin
+from config.admin import linkify
 
 
 def delete_queryset(self, request, queryset):
@@ -15,7 +16,7 @@ class AuctionAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'title',
-        'product',
+        linkify(field_name='product'),
         'description',
         'start_at',
         'end_at',
