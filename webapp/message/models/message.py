@@ -1,6 +1,11 @@
 from django.db import models
+from django.db import transaction
+from django.core.exceptions import ValidationError
+
+
 from config.models import BaseModel
 from user.models import User
+from dealing.models import Dealing
 
 
 class Message(BaseModel):
@@ -36,3 +41,21 @@ class Message(BaseModel):
         related_name='messages',
         null=True,
     )
+
+    @property
+    def dealing_obj(self):
+        return Dealing.objects.find(pk=self.dealing) if isinstance(self.dealing, int) else self.dealing
+
+    def clean(self):
+        self.validate_in_progress_dealing()
+
+    def validate_in_progress_dealing(self):
+        dealing = self.dealing_obj
+
+        if dealing.is_completed:
+            raise ValidationError({'dealing': '거래 종료 후에는 메세지를 보낼 수 없습니다.'})
+
+    @transaction.atomic
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.clean()
+        super().save(force_insert, force_update, using, update_fields)

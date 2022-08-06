@@ -53,7 +53,7 @@ urlpatterns = [
     path('product_groups/', include('product.urls.product_group'), name='product_groups'),
     path('auctions/', include('auction.urls'), name='auctions'),
     path('dealings/', include('dealing.urls'), name='dealings'),
-
+    path('messages/', include('message.urls'), name='messages'),
 ]
 
 if settings.DEBUG:
