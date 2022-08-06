@@ -22,6 +22,7 @@ class Dealing(BaseModel):
         null=True,
         unique=True,
         verbose_name='경매장',
+        related_name='dealings',
     )
     product = models.ForeignKey(
         Product,
