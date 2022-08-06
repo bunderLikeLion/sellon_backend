@@ -116,8 +116,8 @@ class Auction(BaseModel):
         self.end_at = None
         self.save()
 
-        if self.dealings:
-            self.dealings.all().delete()
+        if self.dealing:
+            self.dealing.delete()
 
         self.product.status = Product.IN_AUCTION_STATUS
         self.product.save()

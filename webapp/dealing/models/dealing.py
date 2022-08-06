@@ -15,14 +15,13 @@ class Dealing(BaseModel):
         verbose_name = 'Dealing'
         verbose_name_plural = 'Dealings'
 
-    auction = models.ForeignKey(
+    auction = models.OneToOneField(
         Auction,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        unique=True,
         verbose_name='경매장',
-        related_name='dealings',
+        related_name='dealing',
     )
     product = models.ForeignKey(
         Product,
