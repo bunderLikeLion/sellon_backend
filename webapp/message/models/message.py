@@ -29,3 +29,10 @@ class Message(BaseModel):
         null=False,
         verbose_name='쪽지 내용'
     )
+    dealing = models.ForeignKey(
+        'dealing.Dealing',
+        on_delete=models.SET_NULL,
+        verbose_name='거래',
+        related_name='messages',
+        null=True,
+    )
