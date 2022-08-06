@@ -6,13 +6,13 @@ from rest_framework.filters import OrderingFilter
 from config.viewsets import BaseModelViewSet
 from dealing.models import Dealing
 from dealing.serializers import DealingSerializer
-from dealing.permissions import OnlyAuctionOwnerCreateDealingPermission
+from dealing.permissions import DealingBasePermission
 
 
 class DealingViewSet(BaseModelViewSet):
     serializer_class = DealingSerializer
     permission_classes = [
-        OnlyAuctionOwnerCreateDealingPermission
+        DealingBasePermission
     ]
     filter_backends = [OrderingFilter]
     ordering_fields = [
