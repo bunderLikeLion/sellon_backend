@@ -23,17 +23,19 @@ class Dealing(BaseModel):
         verbose_name='경매장',
         related_name='dealing',
     )
-    product = models.ForeignKey(
+    product = models.OneToOneField(
         Product,
         on_delete=models.CASCADE,
         blank=True,
         verbose_name='물품',
+        related_name='dealing',
     )
-    product_group = models.ForeignKey(
+    product_group = models.OneToOneField(
         ProductGroup,
         on_delete=models.CASCADE,
         blank=True,
         verbose_name='물품 그룹',
+        related_name='dealing',
     )
     completed_at = models.DateTimeField(
         verbose_name='거래 완료 일시',
