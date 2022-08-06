@@ -40,5 +40,3 @@ class DealingSerializer(serializers.ModelSerializer):
             'updated_at',
             'completed_at',
         ]
-
-    # TODO: auction, product, product_group을 받아야함.
