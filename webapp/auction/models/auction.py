@@ -87,6 +87,19 @@ class Auction(BaseModel):
     def is_ended(self):
         return self.end_at and self.end_at <= timezone.now()
 
+    def end(self, by_dealing=False, dealing_product_group=None):
+        self.end_at = now()
+        self.save()
+
+        self.product.status = Product.DEALING_STATUS if by_dealing else Product.HIDDEN_STATUS
+        self.product.save()
+
+        for product_group in self.product_groups.all():
+            if product_group == dealing_product_group:
+                product_group.products.update(status=Product.DEALING_STATUS)
+            else:
+                product_group.products.update(status=Product.HIDDEN_STATUS)
+
     def __str__(self) -> str:
         return f'[{self.id}] {self.title}'
 

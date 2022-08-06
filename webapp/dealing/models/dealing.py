@@ -75,4 +75,10 @@ class Dealing(BaseModel):
     @transaction.atomic
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.clean()
+        previous_object = self.__class__.objects.filter(id=self.id).first()
+
+        if previous_object is None:
+            # NOTE: 거래가 생성될 때
+            self.auction_obj.end(by_dealing=True, dealing_product_group=self.product_group_obj)
+
         super().save(force_insert, force_update, using, update_fields)
