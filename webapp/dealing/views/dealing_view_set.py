@@ -3,7 +3,7 @@ from django.core.exceptions import PermissionDenied
 
 from rest_framework.filters import OrderingFilter
 
-from config.model_view_set import BaseModelViewSet
+from config.viewsets import BaseModelViewSet
 from dealing.models import Dealing
 from dealing.serializers import DealingSerializer
 from dealing.permissions import OnlyAuctionOwnerCreateDealingPermission
