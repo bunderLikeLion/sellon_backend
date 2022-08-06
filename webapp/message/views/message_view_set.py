@@ -32,6 +32,7 @@ class MessageViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, BaseViewSet
     # NOTE: message 수정 / 삭제 / 상세는 지원하지 않는다.
     serializer_class = MessageSerializer
     filter_backends = [OrderingFilter]
+    pagination_class = None
     ordering_fields = [
         'created_at',
         'updated_at',
