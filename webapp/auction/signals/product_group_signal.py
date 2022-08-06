@@ -8,6 +8,10 @@ from product.models import ProductGroup
 def product_group_pre_save(sender, instance: ProductGroup, **kwargs):
     if instance.id is None:
         auction = instance.auction
+
+        if auction is None:
+            return
+
         auction.product_groups_count += 1
         auction.save()
 
@@ -15,5 +19,9 @@ def product_group_pre_save(sender, instance: ProductGroup, **kwargs):
 @receiver(post_delete, sender=ProductGroup)
 def product_group_post_delete(sender, instance: ProductGroup, **kwargs):
     auction = instance.auction
+
+    if auction is None:
+        return
+
     auction.product_groups_count -= 1
     auction.save()

@@ -19,6 +19,7 @@ from django.urls import path, include, re_path
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.conf import settings
 
 
 def ping(request):
@@ -52,4 +53,8 @@ urlpatterns = [
     path('product_groups/', include('product.urls.product_group'), name='product_groups'),
     path('auctions/', include('auction.urls'), name='auctions'),
     path('dealings/', include('dealing.urls'), name='dealings'),
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
