@@ -20,8 +20,6 @@ class IsProductEditableOrDestroyable(permissions.BasePermission):
         if obj.status == Product.IN_AUCTION_STATUS:
             return True
 
-        # TODO: DEALING, DEALDED 인 경우, dealing에 속한 user만 확인할 수 있도록 함.
-
         return False
 
 

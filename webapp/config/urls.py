@@ -37,12 +37,14 @@ schema_view = get_schema_view(
     permission_classes=[permissions.AllowAny],
 )
 
+# TODO: 나중에 swagger admin user만 접근할 수 있게 하기
 urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('ping', ping),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     path('users/', include('user.urls'), name='users'),
     path('images/', include('file_manager.urls'), name='images'),
@@ -51,7 +53,7 @@ urlpatterns = [
     path('product_groups/', include('product.urls.product_group'), name='product_groups'),
     path('auctions/', include('auction.urls'), name='auctions'),
     path('dealings/', include('dealing.urls'), name='dealings'),
-
+    path('messages/', include('message.urls'), name='messages'),
 ]
 
 if settings.DEBUG:

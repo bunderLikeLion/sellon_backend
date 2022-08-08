@@ -38,6 +38,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admindocs',
 ]
 
 PACKAGE_APPS = [
@@ -200,4 +201,15 @@ DJANGO_GUID = {
 # dj-rest settings
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'user.serializers.UserDetailsSerializer',
+}
+
+
+JAZZMIN_SETTINGS = {
+    'site_title': 'Sellon',
+    'site_header': 'Sellon',
+    'site_brand': 'Sellon',
+}
+
+SWAGGER_SETTINGS = {
+    'DEFAULT_MODEL_RENDERING': 'example'
 }
