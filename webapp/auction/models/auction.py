@@ -87,6 +87,44 @@ class Auction(BaseModel):
     def is_ended(self):
         return self.end_at and self.end_at <= timezone.now()
 
+    @transaction.atomic
+    def end(self, by_dealing=False, dealing_product_group=None):
+        """경매장을 종료시킵니디.
+
+        Args:
+            by_dealing (bool, optional): 거래가 생성됨에 따라 종료되었는지 유무입니다. Defaults to False.
+            dealing_product_group (ProductGroup, optional): 거래가 성사된 product_group입니다. Defaults to None.
+        """
+        self.end_at = now()
+        self.save()
+
+        self.product.status = Product.DEALING_STATUS if by_dealing else Product.HIDDEN_STATUS
+        self.product.save()
+
+        for product_group in self.product_groups.all():
+            if product_group == dealing_product_group:
+                product_group.products.update(status=Product.DEALING_STATUS)
+            else:
+                product_group.products.update(status=Product.HIDDEN_STATUS)
+
+    @transaction.atomic
+    def restart(self):
+        """
+        경매장을 재시작합니다. (어드민에서만 사용합니다.)
+        """
+
+        self.end_at = None
+        self.save()
+
+        if self.dealing:
+            self.dealing.delete()
+
+        self.product.status = Product.IN_AUCTION_STATUS
+        self.product.save()
+
+        for product_group in self.product_groups.all():
+            product_group.products.update(status=Product.IN_AUCTION_STATUS)
+
     def __str__(self) -> str:
         return f'[{self.id}] {self.title}'
 
