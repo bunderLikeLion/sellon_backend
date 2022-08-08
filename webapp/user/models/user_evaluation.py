@@ -16,7 +16,7 @@ class UserEvaluation(BaseModel):
         constraints = [
             models.UniqueConstraint(
                 fields=['evaluated_user', 'dealing'],
-                name='unique evaluated_user dealing',
+                name='unique_evaluated_user_dealing',
             )
         ]
 
