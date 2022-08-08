@@ -1,7 +1,7 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .serializers import UserAbstractSerializer
-from .models import User
+from user.serializers import UserAbstractSerializer
+from user.models import User
 
 
 class DestroyUserAPIView(generics.DestroyAPIView):
