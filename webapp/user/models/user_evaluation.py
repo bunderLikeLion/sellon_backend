@@ -22,19 +22,22 @@ class UserEvaluation(BaseModel):
 
     evaluator = models.ForeignKey(
         User,
-        on_delete=models.CASCADE,
+        null=True,
+        on_delete=models.SET_NULL,
         verbose_name='평가 하는 유저',
         related_name='evaluator',
     )
     evaluated_user = models.ForeignKey(
         User,
-        on_delete=models.CASCADE,
+        null=True,
+        on_delete=models.SET_NULL,
         verbose_name='평가 받는 유저',
         related_name='evaluated_user',
     )
     dealing = models.ForeignKey(
         Dealing,
-        on_delete=models.CASCADE,
+        null=True,
+        on_delete=models.SET_NULL,
         verbose_name='거래 내역'
     )
     rate = models.IntegerField(
