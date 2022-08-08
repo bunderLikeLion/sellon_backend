@@ -8,7 +8,9 @@ from auction.serializers.auction_serializers import AuctionSerializer
 
 
 class AuctionViewSet(ModelViewSet):
-    queryset = Auction.objects.all().select_related('product', 'owner', 'product__product_category')
+    queryset = Auction.objects.all() \
+                      .select_related('product', 'owner') \
+                      .prefetch_related('product__product_category')
     serializer_class = AuctionSerializer
     permission_classes = [IsAuctionEditableOrDestroyable]
     filter_backends = [OrderingFilter, DjangoFilterBackend]
