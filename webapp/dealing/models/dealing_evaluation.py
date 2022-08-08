@@ -6,12 +6,12 @@ from dealing.models import Dealing
 from user.models import User
 
 
-class UserEvaluation(BaseModel):
+class DealingEvaluation(BaseModel):
 
     class Meta:
-        db_table = 'user_evaluations'
-        verbose_name = 'UserEvaluation'
-        verbose_name_plural = 'UserEvaluations'
+        db_table = 'dealing_evaluations'
+        verbose_name = 'DealingEvaluation'
+        verbose_name_plural = 'DealingEvaluations'
 
         constraints = [
             models.UniqueConstraint(

@@ -1,20 +1,22 @@
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.mixins import CreateModelMixin, UpdateModelMixin
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 
-from dealing.models import Dealing
-from user.models import UserEvaluation
-from user.permissions import IsEvaluationEditable
-from user.serializers import UserEvaluationSerializer
+from dealing.models import Dealing, DealingEvaluation
+from dealing.permissions import IsEvaluationEditable
+from dealing.serializers.dealing_evaluation_serializer import UserEvaluationSerializer
 
 
-class UserEvaluationViewSet(CreateModelMixin, UpdateModelMixin, GenericViewSet):
-    queryset = UserEvaluation.objects.all()
+class DealingEvaluationView(CreateModelMixin, UpdateModelMixin, GenericViewSet, RetrieveAPIView):
+    queryset = DealingEvaluation.objects.all()
     serializer_class = UserEvaluationSerializer
     permission_classes = [
         IsAuthenticatedOrReadOnly,
         IsEvaluationEditable,
     ]
+
+    lookup_field = 'dealing'
 
     def perform_create(self, serializer):
 

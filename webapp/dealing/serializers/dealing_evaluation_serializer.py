@@ -1,8 +1,7 @@
 from rest_framework import serializers
 
-from dealing.models import Dealing
+from dealing.models import Dealing, DealingEvaluation
 from dealing.serializers import DealingSerializer
-from user.models import UserEvaluation
 
 
 class UserEvaluationSerializer(serializers.ModelSerializer):
@@ -16,7 +15,7 @@ class UserEvaluationSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = UserEvaluation
+        model = DealingEvaluation
         fields = [
             'id',
             'dealing',
