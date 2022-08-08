@@ -15,15 +15,22 @@ class UserEvaluation(BaseModel):
 
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'dealing'],
-                name='unique user dealing',
+                fields=['evaluated_user', 'dealing'],
+                name='unique evaluated_user dealing',
             )
         ]
 
-    user = models.ForeignKey(
+    evaluator = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name='유저'
+        verbose_name='평가 하는 유저',
+        related_name='evaluator',
+    )
+    evaluated_user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='평가 받는 유저',
+        related_name='evaluated_user',
     )
     dealing = models.ForeignKey(
         Dealing,
