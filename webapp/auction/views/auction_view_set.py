@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 from auction.models import Auction
 from auction.permissions import IsAuctionEditableOrDestroyable
@@ -7,10 +8,11 @@ from auction.serializers.auction_serializers import AuctionSerializer
 
 
 class AuctionViewSet(ModelViewSet):
-    queryset = Auction.objects.all().select_related('product', 'owner')
+    queryset = Auction.objects.all().select_related('product', 'owner', 'product__product_category')
     serializer_class = AuctionSerializer
     permission_classes = [IsAuctionEditableOrDestroyable]
-    filter_backends = [OrderingFilter]
+    filter_backends = [OrderingFilter, DjangoFilterBackend]
+    filterset_fields = ['product__product_category_id']
     ordering_fields = [
         'product_groups_count',
         'created_at',
