@@ -2,14 +2,17 @@ from django.db.models import Q
 from django.core.exceptions import PermissionDenied
 
 from rest_framework.filters import OrderingFilter
-
-from config.viewsets import BaseModelViewSet
+from rest_framework import mixins
+from config.viewsets import BaseViewSet
 from dealing.models import Dealing
 from dealing.serializers import DealingSerializer
 from dealing.permissions import DealingBasePermission
 
 
-class DealingViewSet(BaseModelViewSet):
+class DealingViewSet(mixins.CreateModelMixin,
+                     mixins.RetrieveModelMixin,
+                     mixins.ListModelMixin,
+                     BaseViewSet):
     serializer_class = DealingSerializer
     permission_classes = [
         DealingBasePermission
