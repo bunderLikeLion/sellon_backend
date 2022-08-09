@@ -6,8 +6,8 @@ from dealing.views import DealingViewSet, DealingCompleteAPIView, DealingEvaluat
 from dealing.views import CountCompletedAPIView
 
 router = DefaultRouter()
+router.register('evaluation', DealingEvaluationView, basename='evaluation_dealing')
 router.register('', DealingViewSet, basename='dealing')
-router.register('evaluation', DealingEvaluationView, basename='evaluation')
 
 
 urlpatterns = [
