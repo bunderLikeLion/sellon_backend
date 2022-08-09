@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.filters import OrderingFilter
+from rest_framework.filters import OrderingFilter, SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
 from auction.models import Auction
@@ -13,8 +13,13 @@ class AuctionViewSet(ModelViewSet):
                       .prefetch_related('product__product_category')
     serializer_class = AuctionSerializer
     permission_classes = [IsAuctionEditableOrDestroyable]
-    filter_backends = [OrderingFilter, DjangoFilterBackend]
+    filter_backends = [
+        OrderingFilter,
+        DjangoFilterBackend,
+        SearchFilter,
+    ]
     filterset_fields = ['product__product_category_id']
+    search_fields = ['title']
     ordering_fields = [
         'product_groups_count',
         'interested_auctions_count',
