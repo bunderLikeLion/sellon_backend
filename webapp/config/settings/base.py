@@ -213,3 +213,7 @@ JAZZMIN_SETTINGS = {
 SWAGGER_SETTINGS = {
     'DEFAULT_MODEL_RENDERING': 'example'
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.sellon.link'
+]
