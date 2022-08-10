@@ -8,7 +8,7 @@ from product.models.product_group import ProductGroup, Product
 from product.serializers import ProductGroupSerializer
 
 
-class AddProductSerializer(serializers.ModelSerializer):
+class RemoveProductSerializer(serializers.ModelSerializer):
     product_id = serializers.PrimaryKeyRelatedField(
         source='product',
         write_only=True,
@@ -22,8 +22,8 @@ class AddProductSerializer(serializers.ModelSerializer):
         ]
 
 
-class AddProductAPIView(GenericAPIView):
-    serializer_class = AddProductSerializer
+class RemoveProductAPIView(GenericAPIView):
+    serializer_class = RemoveProductSerializer
 
     def get_success_headers(self, data):
         try:
@@ -41,7 +41,8 @@ class AddProductAPIView(GenericAPIView):
             auction_id=auction_id,
             user=request.user,
         )
-        product_ids = list(set(list(map(str, product_group.products.values_list('id', flat=True))) + [product_id]))
+        product_ids = set(list(map(str, product_group.products.values_list('id', flat=True))))
+        product_ids.discard(product_id)
 
         self.get_serializer_context()
 
@@ -60,4 +61,4 @@ class AddProductAPIView(GenericAPIView):
         serializer.save()
 
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(serializer.data, status=status.HTTP_200_OK, headers=headers)
