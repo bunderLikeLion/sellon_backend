@@ -37,10 +37,12 @@ class AuctionSerializer(ModelSerializer):
             'updated_at',
             'dealing_type',
             'is_interested',
-            'product_groups_count'
+            'product_groups_count',
+            'interested_auctions_count'
         ]
         read_only_fields = [
             'product_groups_count',
+            'interested_auctions_count',
             'created_at',
             'updated_at',
         ]

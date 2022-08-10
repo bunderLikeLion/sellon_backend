@@ -17,6 +17,7 @@ class AuctionViewSet(ModelViewSet):
     filterset_fields = ['product__product_category_id']
     ordering_fields = [
         'product_groups_count',
+        'interested_auctions_count',
         'created_at',
         'updated_at'
     ]
