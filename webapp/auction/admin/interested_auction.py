@@ -7,6 +7,7 @@ class InterestedAuctionAdmin(admin.ModelAdmin):
     '''Admin View for Auction'''
 
     list_display = (
+        'id',
         'user',
         'auction'
     )
