@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "01c6d48ea0ab651f8fe16b2c7d7d6bf8ccdddfbb8111e363b5d6c022fd52debc"
+            "sha256": "9b70f739bb277e044ba7d9c05c5bcd74aff0e29d28542ac6121b6c4b459ce9ba"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -258,6 +258,14 @@
             ],
             "index": "kakao",
             "version": "==5.2.0"
+        },
+        "docutils": {
+            "hashes": [
+                "sha256:33995a6753c30b7f577febfc2c50411fec6aac7f7ffeb7c4cfe5991072dcf9e6",
+                "sha256:5e1de4d849fee02c63b040a4a3fd567f4ab104defd8a5511fbbc24a8a017efbc"
+            ],
+            "index": "kakao",
+            "version": "==0.19"
         },
         "drf-writable-nested": {
             "hashes": [
