@@ -27,4 +27,5 @@ class InterestedAuction(BaseModel):
         on_delete=models.CASCADE,
         null=False,
         verbose_name='경매장',
+        related_name='interested_auctions',
     )

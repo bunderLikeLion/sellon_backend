@@ -73,9 +73,14 @@ class Auction(BaseModel):
         default=DIRECT_DEAL_TYPE,
         db_index=True,
     )
-    product_groups_count = models.IntegerField(
+    product_groups_count = models.PositiveIntegerField(
         verbose_name='참여자 수',
-        null=True,
+        null=False,
+        default=0,
+    )
+    interested_auctions_count = models.PositiveIntegerField(
+        verbose_name='관심 수',
+        null=False,
         default=0,
     )
 
