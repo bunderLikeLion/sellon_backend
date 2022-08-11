@@ -1,1 +1,1 @@
-from .user_view import DestroyUserAPIView, RetrieveUserAPIView
+from .user_view import DestroyUserAPIView, RetrieveUserAPIView, DealingsCountAPIView
