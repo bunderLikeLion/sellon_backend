@@ -31,7 +31,6 @@ class AuctionSerializer(ModelSerializer):
             'product_id',
             'product',
             'description',
-            'start_at',
             'end_at',
             'created_at',
             'updated_at',
@@ -41,12 +40,17 @@ class AuctionSerializer(ModelSerializer):
             'interested_auctions_count'
         ]
         read_only_fields = [
+            'start_at',
             'product_groups_count',
             'interested_auctions_count',
             'created_at',
             'updated_at',
         ]
-        extra_kwargs = {}
+        extra_kwargs = {
+            'end_at': {
+                'required': True,
+            }
+        }
 
     @property
     def current_user(self):
