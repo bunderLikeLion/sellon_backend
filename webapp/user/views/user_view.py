@@ -43,4 +43,7 @@ class RatingAPIView(APIView):
     def get(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         qs = DealingEvaluation.objects.filter(evaluated_user=user).values('rate')
-        return Response({'rating': qs})
+        if qs:
+            return Response({'rating': qs})
+        else:
+            return Response({'rating': 0})
