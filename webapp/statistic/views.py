@@ -11,7 +11,6 @@ from user.serializers.user_abstract_serializer import UserAbstractSerializer
 from dealing.models import Dealing
 from django.utils import timezone
 
-
 User = get_user_model()
 
 
@@ -62,7 +61,10 @@ class MostProductGroupDealingOfMonth(RetrieveAPIView):
         ).values('product_group__user').annotate(count=Count('product_group__user')).order_by('-count')
 
         if len(most_product_group_dealing_statitics) == 0:
-            raise Http404()
+            return Response({
+                'user': None,
+                'count': None,
+            })
 
         most_product_group_dealing_statitic = most_product_group_dealing_statitics[0]
 
