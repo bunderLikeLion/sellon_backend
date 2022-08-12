@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from dealing.models import Dealing
+from dealing.models.dealing_evaluation import DealingEvaluation
 from user.serializers import UserAbstractSerializer
 from user.models import User
 
@@ -36,3 +37,10 @@ class DealingsCountAPIView(APIView):
         product_group_count = Dealing.objects.filter(product_group__user=user).count()
         count = product_count + product_group_count
         return Response({'count': count})
+
+
+class RatingAPIView(APIView):
+    def get(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
+        qs = DealingEvaluation.objects.filter(evaluated_user=user).values('rate')
+        return Response({'rating': qs})
