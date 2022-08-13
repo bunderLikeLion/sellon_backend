@@ -43,7 +43,7 @@ class RemoveProductAPIView(GenericAPIView):
             user=request.user,
         )
         product_ids = set(list(map(str, product_group.products.values_list('id', flat=True))))
-        product_ids.discard(product_id)
+        product_ids.discard(str(product_id))
 
         if isinstance(request.data, QueryDict):
             request.data._mutable = True
