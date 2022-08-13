@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.http import QueryDict
 from rest_framework.generics import GenericAPIView
 from rest_framework import status, serializers
 from rest_framework.response import Response
@@ -44,11 +45,12 @@ class RemoveProductAPIView(GenericAPIView):
         product_ids = set(list(map(str, product_group.products.values_list('id', flat=True))))
         product_ids.discard(product_id)
 
-        self.get_serializer_context()
-
-        request.data._mutable = True
-        request.data.setlist('product_ids', product_ids)
-        request.data._mutable = False
+        if isinstance(request.data, QueryDict):
+            request.data._mutable = True
+            request.data.setlist('product_ids', product_ids)
+            request.data._mutable = False
+        else:
+            request.data['product_ids'] = product_ids
 
         serializer = ProductGroupSerializer(
             product_group,
