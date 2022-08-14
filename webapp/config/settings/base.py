@@ -54,6 +54,7 @@ PACKAGE_APPS = [
     'corsheaders',
     'django_guid',
     'django_filters',
+    'sorl.thumbnail',
 ]
 
 PROJECT_APPS = [
