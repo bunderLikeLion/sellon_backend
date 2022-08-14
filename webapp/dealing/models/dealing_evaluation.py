@@ -38,7 +38,8 @@ class DealingEvaluation(BaseModel):
         Dealing,
         null=True,
         on_delete=models.SET_NULL,
-        verbose_name='거래 내역'
+        verbose_name='거래 내역',
+        related_name='dealing_evaluations',
     )
     rate = models.IntegerField(
         verbose_name='점수',
