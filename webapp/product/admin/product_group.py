@@ -1,5 +1,6 @@
 from product.models import ProductGroup
 from django.contrib import admin
+from config.admin import linkify
 
 
 def delete_queryset(self, request, queryset):
@@ -13,8 +14,8 @@ class ProductGroupAdmin(admin.ModelAdmin):
 
     list_display = [
         'id',
-        'user',
-        'auction',
+        linkify(field_name='user'),
+        linkify(field_name='auction'),
         'created_at',
         'updated_at',
     ]
