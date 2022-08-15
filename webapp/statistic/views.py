@@ -9,6 +9,7 @@ from rest_framework.response import Response
 
 from user.serializers.user_abstract_serializer import UserAbstractSerializer
 from dealing.models import Dealing
+from auction.models import Auction
 from django.utils import timezone
 
 User = get_user_model()
@@ -16,7 +17,7 @@ User = get_user_model()
 
 class UserDealingStatisticSerailizer(serializers.Serializer):
     user = UserAbstractSerializer(read_only=True)
-    dealing_count = serializers.IntegerField()
+    count = serializers.IntegerField()
 
     class Meta:
         fields = [
@@ -74,3 +75,23 @@ class MostProductGroupDealingOfMonth(RetrieveAPIView):
             'user': UserAbstractSerializer(user).data,
             'count': most_product_group_dealing_statitic['count']
         })
+
+
+class MonthlyChampionAPIView(RetrieveAPIView):
+    serializer_class = UserDealingStatisticSerailizer
+
+    def get(self, request):
+        try:
+            max_participant_count_compeleted_auction = Auction.objects.filter(
+                Q(dealing__completed_at__month=timezone.now().month) & Q(dealing__completed_at__isnull=False)
+            ).order_by('-product_groups_count')[0]
+
+            user = max_participant_count_compeleted_auction.dealing.product_group.user
+
+            return Response({
+                'user': UserAbstractSerializer(user).data,
+                'count': max_participant_count_compeleted_auction.product_groups_count
+
+            })
+        except Exception as e:
+            return Response({'error': str(e)}, status=404)
