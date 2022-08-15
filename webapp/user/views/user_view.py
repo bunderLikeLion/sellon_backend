@@ -42,8 +42,13 @@ class DealingsCountAPIView(APIView):
 class RatingAPIView(APIView):
     def get(self, request, pk):
         user = get_object_or_404(User, pk=pk)
-        qs = DealingEvaluation.objects.filter(evaluated_user=user).values('rate')
-        if qs:
-            return Response({'rating': qs})
-        else:
+        qs = list(DealingEvaluation.objects.filter(evaluated_user=user).values('rate'))
+        count = DealingEvaluation.objects.filter(evaluated_user=user).values('rate').count()
+        result = 0
+        for q in qs:
+            result += q['rate']
+        try:
+            result = result / count
+            return Response({'rating': result})
+        except ZeroDivisionError:
             return Response({'rating': 0})
