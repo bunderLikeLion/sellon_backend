@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from product.permissions import IsProductEditableOrDestroyable
 from product.models import Product
-from product.serializers import ProductSerializer
+from product.serializers import ProductSerializer, ProductUpdateSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -19,6 +19,12 @@ class ProductViewSet(ModelViewSet):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['name', 'dealing_at', 'dealed_at', 'created_at', 'updated_at']
     ordering = ['-updated_at']
+
+    def get_serializer_class(self):
+        if self.action == 'update' or self.action == 'partial_update':
+            return ProductUpdateSerializer
+
+        return ProductSerializer
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
