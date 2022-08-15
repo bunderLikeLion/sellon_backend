@@ -32,7 +32,7 @@ class AuctionViewSet(ModelViewSet):
         SearchFilter,
         IncludeEnededAuctionFilter,
     ]
-    filterset_fields = ['product__product_category_id']
+    filterset_fields = ['product__product_category_id', 'owner']
     search_fields = ['title']
     ordering_fields = [
         'product_groups_count',

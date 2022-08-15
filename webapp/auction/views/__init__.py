@@ -4,3 +4,4 @@ from .interested_auction_view_set import InterestedAuctionViewSet
 from .add_product_api_view import AddProductAPIView
 from .remove_product_api_view import RemoveProductAPIView
 from .all_in_api_view import AllInAPIView
+from .my_auction_api_view import MyAuctionAPIView
