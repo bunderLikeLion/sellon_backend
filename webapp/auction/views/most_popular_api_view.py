@@ -5,7 +5,7 @@ from auction.serializers.auction_serializers import AuctionSerializer
 
 
 class MostPopularAPIView(ListAPIView):
-    queryset = Auction.objects.in_progress().select_related('product', 'owner').order_by('-product_groups_count')[:2]
+    queryset = Auction.objects.in_progress().select_related('product', 'owner').order_by('-product_groups_count')[:3]
     serializer_class = AuctionSerializer
     pagination_class = None
 

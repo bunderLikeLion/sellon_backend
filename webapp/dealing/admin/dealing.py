@@ -1,5 +1,6 @@
 from django.contrib import admin
 from dealing.models import Dealing
+from config.admin import linkify
 
 
 def restart(self, request, queryset):
@@ -13,8 +14,8 @@ class DealingAdmin(admin.ModelAdmin):
 
     list_display = (
         'id',
-        'product',
-        'product_group',
+        linkify(field_name='product'),
+        linkify(field_name='product_group'),
         'completed_at',
         'created_at',
         'updated_at',

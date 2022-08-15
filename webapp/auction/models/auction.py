@@ -12,7 +12,7 @@ from user.models import User
 
 class AuctionModelManger(ModelManager):
     def in_progress(self):
-        return self.get_queryset().filter(Q(end_at__lte=now()) | Q(end_at__isnull=True))
+        return self.get_queryset().filter(Q(end_at__gte=now()) | Q(end_at__isnull=True))
 
 
 class Auction(BaseModel):

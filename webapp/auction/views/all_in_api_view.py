@@ -1,30 +1,24 @@
 from django.db import transaction
 from django.http import QueryDict
+from django.shortcuts import get_object_or_404
 from rest_framework.generics import GenericAPIView
 from rest_framework import status, serializers
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
+from auction.models import Auction
 from product.models.product_group import ProductGroup, Product
 from product.serializers import ProductGroupSerializer
 
 
-class RemoveProductSerializer(serializers.ModelSerializer):
-    product_id = serializers.PrimaryKeyRelatedField(
-        source='product',
-        write_only=True,
-        queryset=Product.objects.all(),
-    )
-
+class AllInSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductGroup
-        fields = [
-            'product_id',
-        ]
+        fields = []
 
 
-class RemoveProductAPIView(GenericAPIView):
-    serializer_class = RemoveProductSerializer
+class AllInAPIView(GenericAPIView):
+    serializer_class = AllInSerializer
 
     def get_success_headers(self, data):
         try:
@@ -34,16 +28,17 @@ class RemoveProductAPIView(GenericAPIView):
 
     @transaction.atomic
     def post(self, request, auction_id, *args, **kwargs):
-        product_id = request.data.get('product_id') or None
-        # TODO: product 없는 경우 에러 처리
-        # TODO: 익명 유저 에러처리
+        auction = get_object_or_404(Auction, pk=auction_id)
 
         product_group, _created = ProductGroup.objects.get_or_create(
-            auction_id=auction_id,
+            auction=auction,
             user=request.user,
         )
-        product_ids = set(list(map(str, product_group.products.values_list('id', flat=True))))
-        product_ids.discard(str(product_id))
+        already_registered_product_ids = list(map(str, product_group.products.values_list('id', flat=True)))
+
+        hidden_products = Product.objects.filter(user=request.user, status=Product.HIDDEN_STATUS)
+        hidden_product_ids = list(map(str, hidden_products.values_list('id', flat=True)))
+        product_ids = list(set(already_registered_product_ids + hidden_product_ids))
 
         if isinstance(request.data, QueryDict):
             request.data._mutable = True
@@ -63,4 +58,4 @@ class RemoveProductAPIView(GenericAPIView):
         serializer.save()
 
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_200_OK, headers=headers)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
