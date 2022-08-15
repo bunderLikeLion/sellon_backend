@@ -23,10 +23,12 @@ class Auction(BaseModel):
 
     DIRECT_DEAL_TYPE = 0
     DELIVERY_DEAL_TYPE = 1
+    ALL_DEAL_TYPE = 2
 
     DEALING_TYPES = (
         (DIRECT_DEAL_TYPE, 'direct'),
         (DELIVERY_DEAL_TYPE, 'delivery'),
+        (ALL_DEAL_TYPE, 'all'),
     )
 
     objects = AuctionModelManger()
