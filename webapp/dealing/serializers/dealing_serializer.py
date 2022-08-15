@@ -23,6 +23,7 @@ class DealingSerializer(serializers.ModelSerializer):
         write_only=True,
     )
     is_evaluated = serializers.SerializerMethodField(source='is_evaluated')
+    last_message_sent_at = serializers.SerializerMethodField(source='last_message_sent_at')
 
     class Meta:
         model = Dealing
@@ -37,6 +38,7 @@ class DealingSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'is_evaluated',
+            'last_message_sent_at',
         ]
         read_only_fields = [
             'created_at',
@@ -57,3 +59,13 @@ class DealingSerializer(serializers.ModelSerializer):
         if self.is_anonymous_user:
             return False
         return dealing.dealing_evaluations.filter(evaluator=self.current_user).exists()
+
+    @swagger_serializer_method(serializer_or_field=serializers.DateTimeField)
+    def get_last_message_sent_at(self, dealing):
+        if self.is_anonymous_user:
+            return ''
+        messages = dealing.messages.order_by('-updated_at')
+
+        if len(messages) < 1:
+            return ''
+        return messages[0].created_at
