@@ -58,7 +58,7 @@ PACKAGE_APPS = [
 ]
 
 PROJECT_APPS = [
-    'user',
+    'user.apps.UserConfig',
     'product',
     'file_manager',
     'auction',

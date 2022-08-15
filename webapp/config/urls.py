@@ -20,6 +20,8 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.conf import settings
+from django.conf.urls.static import static
+from .settings import base
 
 
 def ping(request):
@@ -55,7 +57,7 @@ urlpatterns = [
     path('dealings/', include('dealing.urls'), name='dealings'),
     path('messages/', include('message.urls'), name='messages'),
     path('statistics/', include('statistic.urls'), name='statistics'),
-]
+] + static(base.MEDIA_URL, document_root=base.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
