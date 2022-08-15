@@ -22,6 +22,7 @@ django-extensions = "==3.2.0"
 django-filter = "==22.1"
 docutils = "==0.19"
 django-silk = "==5.0.1"
+sorl-thumbnail = "*"
 
 [dev-packages]
 pre-commit = "==2.20.0"
