@@ -8,6 +8,7 @@ class InterestedAuctionAdmin(admin.ModelAdmin):
     '''Admin View for Auction'''
 
     list_display = (
+        'id',
         linkify(field_name='user'),
         linkify(field_name='auction'),
     )
