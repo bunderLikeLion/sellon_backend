@@ -11,11 +11,11 @@ class ProductImage(BaseModel):
 
     image = models.ForeignKey(
         'file_manager.Image',
-        related_name='image',
+        related_name='product_image_items',
         on_delete=models.CASCADE,
     )
     product = models.ForeignKey(
         'product.Product',
-        related_name='product',
+        related_name='product_image_items',
         on_delete=models.CASCADE,
     )
