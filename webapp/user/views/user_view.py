@@ -47,8 +47,5 @@ class RatingAPIView(APIView):
         result = 0
         for q in qs:
             result += q['rate']
-        try:
-            result = result / count
-            return Response({'rating': result})
-        except ZeroDivisionError:
-            return Response({'rating': 0})
+        result = result / count if count > 0 else 0
+        return Response({'rating': result})
