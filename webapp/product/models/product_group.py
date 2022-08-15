@@ -53,14 +53,23 @@ class ProductGroup(BaseModel):
         return Auction.objects.find(pk=self.auction) if isinstance(self.auction, int) else self.auction
 
     def validate_already_ended_acution(self):
+        if self.auction_obj is None:
+            return
+
         if self.auction_obj.is_ended:
             raise ValidationError({'auction': '종료된 경매장에 등록한 상품 목록은 수정할 수 없습니다'})
 
     def validate_self_participating(self):
+        if self.auction_obj is None:
+            return
+
         if self.auction_obj.owner == self.user:
             raise ValidationError({'auction': '자신이 만든 경매장에는 참여할 수 없습니다'})
 
     def validate_editing_auction(self, previous_object):
+        if self.auction_obj is None:
+            return
+
         if self.auction_obj.id != previous_object.auction.id:
             raise ValidationError({'auction': '경매장 정보는 수정할 수 없습니다.'})
 
@@ -73,6 +82,11 @@ class ProductGroup(BaseModel):
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.clean()
+        if self._state.adding:
+            auction = self.auction_obj
+            auction.product_groups_count += 1
+            auction.save()
+
         super().save(force_insert, force_update, using, update_fields)
 
     @transaction.atomic
@@ -80,4 +94,11 @@ class ProductGroup(BaseModel):
         self.validate_already_ended_acution()
 
         self.products.update(status=Product.HIDDEN_STATUS)
+
+        auction = self.auction_obj
+
+        if auction is not None:
+            auction.product_groups_count -= 1
+            auction.save()
+
         super().delete(using, keep_parents)

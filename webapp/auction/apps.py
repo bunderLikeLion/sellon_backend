@@ -6,5 +6,4 @@ class AuctionConfig(AppConfig):
     name = 'auction'
 
     def ready(self):
-        import auction.signals.product_group_signal
         import auction.signals.interested_auction_signal

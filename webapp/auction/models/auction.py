@@ -123,8 +123,10 @@ class Auction(BaseModel):
         self.end_at = None
         self.save()
 
-        if self.dealing:
+        try:
             self.dealing.delete()
+        except Exception:
+            pass
 
         self.product.status = Product.IN_AUCTION_STATUS
         self.product.save()
