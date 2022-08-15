@@ -1,10 +1,23 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.filters import OrderingFilter, SearchFilter, BaseFilterBackend
 from django_filters.rest_framework import DjangoFilterBackend
 
 from auction.models import Auction
 from auction.permissions import IsAuctionEditableOrDestroyable
 from auction.serializers.auction_serializers import AuctionSerializer
+
+
+class IncludeEnededAuctionFilter(BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        value = request.query_params.get('include_ended_auction', '')
+
+        if not value:
+            return queryset
+
+        if value == 'false' or value == 'False' or not value:
+            return queryset.filter(end_at__isnull=True)
+
+        return queryset
 
 
 class AuctionViewSet(ModelViewSet):
@@ -17,6 +30,7 @@ class AuctionViewSet(ModelViewSet):
         OrderingFilter,
         DjangoFilterBackend,
         SearchFilter,
+        IncludeEnededAuctionFilter,
     ]
     filterset_fields = ['product__product_category_id']
     search_fields = ['title']
@@ -63,5 +77,6 @@ class AuctionViewSet(ModelViewSet):
     def list(self, request, *args, **kwargs):
         """
         경매장 목록을 반환합니다.
+        - params: include_ended_auction(boolean) -> 종료된 경매를 포함하는가(기본: 포함)
         """
         return super().list(request, *args, **kwargs)
