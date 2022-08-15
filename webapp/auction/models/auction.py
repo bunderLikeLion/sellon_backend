@@ -12,7 +12,7 @@ from user.models import User
 
 class AuctionModelManger(ModelManager):
     def in_progress(self):
-        return self.get_queryset().filter(Q(end_at__lte=now()) | Q(end_at__isnull=True))
+        return self.get_queryset().filter(Q(end_at__gte=now()) | Q(end_at__isnull=True))
 
 
 class Auction(BaseModel):
@@ -73,9 +73,14 @@ class Auction(BaseModel):
         default=DIRECT_DEAL_TYPE,
         db_index=True,
     )
-    product_groups_count = models.IntegerField(
+    product_groups_count = models.PositiveIntegerField(
         verbose_name='참여자 수',
-        null=True,
+        null=False,
+        default=0,
+    )
+    interested_auctions_count = models.PositiveIntegerField(
+        verbose_name='관심 수',
+        null=False,
         default=0,
     )
 

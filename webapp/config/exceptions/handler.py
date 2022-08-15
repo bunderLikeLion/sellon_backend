@@ -49,6 +49,9 @@ def exception_handler(exc, context):
         if 'unique_interested_auction_by_user' in data:
             data = {'auction': ['이미 관심 설정한 경매장입니다']}
 
+        if 'user_evaluations.evaluated_user_id, user_evaluations.dealing_id' in data:
+            data = {'evaluation': ['이미 평가를 완료한 항목입니다. 수정 요청만 허용됩니다.']}
+
         return Response(data, status=422, headers=headers)
 
     if isinstance(exc, exceptions.APIException):

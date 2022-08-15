@@ -3,6 +3,7 @@ from rest_framework import serializers
 from config.serializers import IntegerChoiceField
 from file_manager.serializers.image_serializer import ImageSerializer
 from product.models import Product
+from .product_category_serializer import ProductCategorySerializer
 
 
 class ProductAbstractSerializer(serializers.ModelSerializer):
@@ -13,7 +14,7 @@ class ProductAbstractSerializer(serializers.ModelSerializer):
             'empty': '썸네일을 첨부해주세요.',
         }
     )
-
+    product_category = ProductCategorySerializer(read_only=True)
     status = IntegerChoiceField(choices=Product.STATUS_CHOICES, read_only=True)
 
     class Meta:

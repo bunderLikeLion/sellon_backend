@@ -1,3 +1,6 @@
 from .auction_view_set import AuctionViewSet
 from .most_popular_api_view import MostPopularAPIView
 from .interested_auction_view_set import InterestedAuctionViewSet
+from .add_product_api_view import AddProductAPIView
+from .remove_product_api_view import RemoveProductAPIView
+from .all_in_api_view import AllInAPIView

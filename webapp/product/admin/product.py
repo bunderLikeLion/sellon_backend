@@ -1,5 +1,6 @@
 from django.contrib import admin
 from product.models import Product
+from config.admin import linkify
 
 
 @admin.register(Product)
@@ -9,10 +10,10 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'name',
-        'user',
+        linkify(field_name='user'),
         'quality',
         'quantity',
-        'product_category',
+        linkify(field_name='product_category'),
         'status',
     )
     list_filter = (
