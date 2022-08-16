@@ -1,2 +1,3 @@
 from .auction_serializers import AuctionSerializer
 from .interested_auction_serializers import InterestedAuctionSerializer
+from .popular_auction_serializer import PopularAuctionSerializer

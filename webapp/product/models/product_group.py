@@ -24,7 +24,8 @@ class ProductGroup(BaseModel):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name='유저'
+        verbose_name='유저',
+        related_name='product_groups',
     )
     auction = models.ForeignKey(
         Auction,

@@ -38,12 +38,14 @@ class Auction(BaseModel):
         on_delete=models.CASCADE,
         null=False,
         verbose_name='유저',
+        related_name='auctions',
     )
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         null=False,
         verbose_name='물품',
+        related_name='auctions',
     )
     title = models.CharField(
         verbose_name='경매 제목',
@@ -84,6 +86,11 @@ class Auction(BaseModel):
         verbose_name='관심 수',
         null=False,
         default=0,
+    )
+    participants = models.ManyToManyField(
+        'user.User',
+        through='product.ProductGroup',
+        related_name='participating_auctions'
     )
 
     @property
