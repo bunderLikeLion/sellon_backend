@@ -11,6 +11,6 @@ class DealingHistoryListAPIView(ListAPIView):
     pagination_class = None
 
     def get_queryset(self):
-        return Dealing.objects.all()\
+        return Dealing.objects \
             .filter(product_group__user=self.request.user, completed_at__isnull=False)
 
