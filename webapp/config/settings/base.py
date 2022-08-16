@@ -145,6 +145,10 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = f'{PROJECT_DIR}/static/'
 
+STATICFILES_DIRS = [
+    f'{PROJECT_DIR}/user/staticfiles/'
+]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = f'{PROJECT_DIR}/media/'
 
@@ -202,6 +206,7 @@ DJANGO_GUID = {
 # dj-rest settings
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'user.serializers.UserDetailsSerializer',
+    'JWT_SERIALIZER': 'user.serializers.UserLoginSerializer',
 }
 
 
@@ -216,5 +221,6 @@ SWAGGER_SETTINGS = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.sellon.link'
+    'https://*.sellon.link',
+    'https://sellon-webapp.test',
 ]

@@ -1,8 +1,29 @@
 """ User App Models"""
-
+import random
 from django.db import models
-
+from django.core.files import File
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.utils.html import format_html
+from sorl.thumbnail import get_thumbnail
+
+RANDOM_PROFILE = [
+    'avatars/1.jpg',
+    'avatars/2.jpg',
+    'avatars/3.jpg',
+    'avatars/4.jpg',
+    'avatars/5.jpg',
+    'avatars/6.jpg',
+    'avatars/7.jpg',
+    'avatars/8.jpg'
+]
+
+
+def get_random_profile_filename():
+    return random.choice(RANDOM_PROFILE)
+
+
+def user_directory_path(instance, filename):
+    return 'avatars/user_{}/{}'.format(instance.username, filename)
 
 
 class UserManager(BaseUserManager):
@@ -51,12 +72,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     updated_at = models.DateTimeField(
         auto_now=True
     )  # 유저 레코드가 수정된 일자
-    avatar = models.ForeignKey(
-        'file_manager.Image',
+    avatar = models.ImageField(
         null=True,
         blank=True,
-        on_delete=models.SET_NULL,
         verbose_name='프로필 이미지',
+        upload_to=user_directory_path,
     )   # 유저 프로필 이미지
 
     objects = UserManager()
@@ -64,6 +84,30 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_superuser
+
+    @property
+    def avatar_preview(self):
+        if self.avatar:
+            _thumbnail = get_thumbnail(
+                self.avatar,
+                '300x300',
+                upscale=False,
+                crop=False,
+                quality=100
+            )
+            return format_html(
+                '<img src="{}" width="{}" height="{}">'.format(
+                    _thumbnail.url, _thumbnail.width, _thumbnail.height
+                )
+            )
+        return ''
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self._state.adding:
+            filename = get_random_profile_filename()
+            f = open('static/' + filename, 'rb')
+            self.avatar = File(f)
+        super().save(force_insert, force_update, using, update_fields)
 
     def __str__(self) -> str:
         return f'[{self.id}] {self.username} ({self.email})'

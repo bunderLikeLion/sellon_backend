@@ -5,8 +5,11 @@ from ..models import Image
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     '''Admin View for Image'''
-
-    list_display = ('id',)
+    list_per_page = 10
+    list_display = (
+        'id',
+        'thumbnail_preview',
+    )
     readonly_fields = ('thumbnail_preview',)
     ordering = ('created_at', 'updated_at')
 

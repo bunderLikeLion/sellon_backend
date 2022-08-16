@@ -1,7 +1,33 @@
 from django.contrib import admin
-from .models import User
+from django.core.files import File
+
+from .models.user import User, get_random_profile_filename
+
+
+def reset_avatar(self, request, querset):
+    for user in querset:
+        filename = get_random_profile_filename()
+        f = open('static/' + filename, 'rb')
+        user.avatar = File(f)
+        user.save()
+        f.close()
 
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    pass
+    actions = [reset_avatar]
+
+    list_per_page = 10
+    list_display = [
+        'id',
+        'email',
+        'username',
+        'avatar_preview',
+    ]
+    readonly_fields = ('avatar_preview',)
+
+    def avatar_preview(self, obj):
+        return obj.avatar_preview
+
+    avatar_preview.short_description = 'Thumbnail Preview'
+    avatar_preview.allow_tags = True

@@ -2,17 +2,11 @@ from dj_rest_auth.serializers import UserModel
 from django.conf import settings
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 
-from file_manager.serializers.abstract_image_serializer import AbstractImageSerializer
-
 
 class UserDetailsSerializer(WritableNestedModelSerializer):
     """
     User model w/o password
     """
-    avatar = AbstractImageSerializer(
-        required=False,
-    )
-
     @staticmethod
     def validate_username(username):
         if 'allauth.account' not in settings.INSTALLED_APPS:
