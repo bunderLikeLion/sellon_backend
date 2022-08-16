@@ -25,6 +25,7 @@ class DealingViewSet(mixins.CreateModelMixin,
     ordering = [
         '-updated_at',
     ]
+    pagination_class = None
 
     # TODO: 거래가 종료되었는지를 판단하는 API 를 따로 제공해야 하는가? 상대방이 거래 종료하면 프론트에서 캐치할 수 있나?
 
