@@ -13,8 +13,12 @@ class ProductGroupViewSet(ModelViewSet):
         IsAuthenticated,
         IsProductGroupEditableOrDestroyable,
     ]
-    queryset = ProductGroup.objects.all().select_related('user')
     filterset_fields = ['auction', 'user']
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return ProductGroup.objects.all().select_related('user').filter(products__isnull=False).distinct()
+        return ProductGroup.objects.all().select_related('user')
 
     @transaction.atomic
     def perform_create(self, serializer):
