@@ -16,6 +16,7 @@ class ProductAbstractSerializer(serializers.ModelSerializer):
     )
     product_category = ProductCategorySerializer(read_only=True)
     status = IntegerChoiceField(choices=Product.STATUS_CHOICES, read_only=True)
+    images = ImageSerializer(many=True, required=False)
 
     class Meta:
         model = Product
@@ -23,6 +24,7 @@ class ProductAbstractSerializer(serializers.ModelSerializer):
             'id',
             'user',
             'thumbnail',
+            'images',
             'product_category',
             'name',
             'description',
