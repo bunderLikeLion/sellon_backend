@@ -76,8 +76,12 @@ class Dealing(BaseModel):
         self.save()
 
         self.product_obj.status = Product.DEALED_STATUS
+        self.product_obj.user.completed_dealings_count += 1
         self.product_obj.save()
+        self.product_obj.user.save()
 
+        self.product_group_obj.user.completed_dealings_count += 1
+        self.product_group_obj.user.save()
         self.product_group_obj.products.update(status=Product.DEALED_STATUS)
 
     @transaction.atomic

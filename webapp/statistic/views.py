@@ -4,10 +4,10 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 
 from rest_framework import serializers
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, ListAPIView
 from rest_framework.response import Response
 
-from user.serializers.user_abstract_serializer import UserAbstractSerializer
+from user.serializers import UserAbstractSerializer, UserDealingRankingSerializer
 from dealing.models import Dealing
 from auction.models import Auction
 from django.utils import timezone
@@ -99,3 +99,11 @@ class MonthlyChampionAPIView(RetrieveAPIView):
             })
         except Exception as e:
             return Response({'error': str(e)}, status=404)
+
+
+class DealingRankingAPIView(ListAPIView):
+
+    serializer_class = UserDealingRankingSerializer
+
+    def get_queryset(self):
+        return User.objects.all().order_by('-completed_dealings_count')
