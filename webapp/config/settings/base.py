@@ -52,7 +52,6 @@ PACKAGE_APPS = [
     'drf_yasg',
     # django-cors-header
     'corsheaders',
-    'django_guid',
     'django_filters',
     'sorl.thumbnail',
 ]
@@ -77,7 +76,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_guid.middleware.guid_middleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -191,17 +189,6 @@ SIMPLE_JWT = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-
-# DJANGO_GUID settings
-DJANGO_GUID = {
-    'GUID_HEADER_NAME': 'Correlation-ID',
-    'VALIDATE_GUID': True,
-    'RETURN_HEADER': True,
-    'EXPOSE_HEADER': True,
-    'INTEGRATIONS': [],
-    'IGNORE_URLS': [],
-    'UUID_LENGTH': 32,
-}
 
 # dj-rest settings
 REST_AUTH_SERIALIZERS = {

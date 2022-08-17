@@ -40,38 +40,29 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'logFormat': {
-            'format': '{levelname} ... [{correlation_id}] [{name}:{lineno}] {asctime} {message}',
+            'format': '{levelname} ... [{name}:{lineno}] {asctime} {message}',
             'datefmt': '%d/%b/%Y %H:%M:%S',
             'style': '{',
         },
 
-    },
-    'filters': {
-        'correlation_id': {
-            '()': 'django_guid.log_filters.CorrelationId'
-        },
     },
     'handlers': {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': LOG_FILE_PATH,
-            'filters': ['correlation_id'],
             'formatter': 'logFormat'
         },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'logFormat',
-            'filters': ['correlation_id'],
         },
         'django.server': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
-            'filters': ['correlation_id'],
             'formatter': 'logFormat',
         },
-
     },
     'loggers': {
         'django_guid': {
