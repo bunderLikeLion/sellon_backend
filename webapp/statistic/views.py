@@ -106,4 +106,4 @@ class DealingRankingAPIView(ListAPIView):
     serializer_class = UserDealingRankingSerializer
 
     def get_queryset(self):
-        return User.objects.all().order_by('-completed_dealings_count')
+        return User.objects.order_by('-completed_dealings_count')[:10]

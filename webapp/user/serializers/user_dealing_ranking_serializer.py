@@ -5,6 +5,8 @@ from user.models import User
 
 class UserDealingRankingSerializer(serializers.ModelSerializer):
 
+    pagination_class = None
+
     class Meta:
         model = User
         fields = [
