@@ -10,6 +10,7 @@ class UserDealingRankingSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'username',
+            'avatar',
             'completed_dealings_count',
         ]
         read_only_fields = [
