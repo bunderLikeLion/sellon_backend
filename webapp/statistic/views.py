@@ -43,9 +43,10 @@ class MostProductDealingOfMonth(RetrieveAPIView):
         most_dealing_product_statitic = dealing_product_statistics[0]
 
         user = get_object_or_404(User, pk=most_dealing_product_statitic['product__user'])
+        print(request)
 
         return Response({
-            'user': UserAbstractSerializer(user).data,
+            'user': UserAbstractSerializer(user, context={'request': request}).data,
             'count': most_dealing_product_statitic['count']
         })
 
@@ -70,9 +71,9 @@ class MostProductGroupDealingOfMonth(RetrieveAPIView):
         most_product_group_dealing_statitic = most_product_group_dealing_statitics[0]
 
         user = get_object_or_404(User, pk=most_product_group_dealing_statitic['product_group__user'])
-
+        print(request)
         return Response({
-            'user': UserAbstractSerializer(user).data,
+            'user': UserAbstractSerializer(user, context={'request': request}).data,
             'count': most_product_group_dealing_statitic['count']
         })
 
@@ -81,6 +82,9 @@ class MonthlyChampionAPIView(RetrieveAPIView):
     serializer_class = UserDealingStatisticSerailizer
 
     def get(self, request):
+        """
+        이번 달 가장 많은 참여자를 보유한 경매에서 낙찰된 사람을 반환합니다.
+        """
         try:
             max_participant_count_compeleted_auction = Auction.objects.filter(
                 Q(dealing__completed_at__month=timezone.now().month) & Q(dealing__completed_at__isnull=False)
@@ -89,7 +93,7 @@ class MonthlyChampionAPIView(RetrieveAPIView):
             user = max_participant_count_compeleted_auction.dealing.product_group.user
 
             return Response({
-                'user': UserAbstractSerializer(user).data,
+                'user': UserAbstractSerializer(user, context={'request': request}).data,
                 'count': max_participant_count_compeleted_auction.product_groups_count
 
             })
