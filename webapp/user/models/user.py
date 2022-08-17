@@ -78,6 +78,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name='프로필 이미지',
         upload_to=user_directory_path,
     )   # 유저 프로필 이미지
+    completed_dealings_count = models.PositiveIntegerField(
+        default=0,
+        verbose_name='거래횟수',
+    )
 
     objects = UserManager()
 
