@@ -13,9 +13,15 @@ def reset_avatar(self, request, querset):
         f.close()
 
 
+def reset_counters(self, request, queryset):
+    for user in queryset:
+        user.completed_dealings_count = 0
+        user.save()
+
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    actions = [reset_avatar]
+    actions = [reset_avatar, reset_counters]
 
     list_per_page = 10
     list_display = [
