@@ -1,3 +1,5 @@
+from django.db.models import Q
+from django.utils.timezone import now
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import OrderingFilter, SearchFilter, BaseFilterBackend
 from django_filters.rest_framework import DjangoFilterBackend
@@ -15,7 +17,7 @@ class IncludeEnededAuctionFilter(BaseFilterBackend):
             return queryset
 
         if value == 'false' or value == 'False' or not value:
-            return queryset.filter(end_at__isnull=True)
+            return queryset.filter(Q(end_at__gte=now()) | Q(end_at__isnull=True))
 
         return queryset
 
