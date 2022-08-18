@@ -33,8 +33,8 @@ class DealingsCountAPIView(APIView):
         유저의 거래 횟수를 반환합니다.
         """
         user = get_object_or_404(User, pk=pk)
-        product_count = Dealing.objects.filter(product__user=user).count()
-        product_group_count = Dealing.objects.filter(product_group__user=user).count()
+        product_count = Dealing.objects.filter(product__user=user, completed_at__isnull=False).count()
+        product_group_count = Dealing.objects.filter(product_group__user=user, completed_at__isnull=False).count()
         count = product_count + product_group_count
         return Response({'count': count})
 
