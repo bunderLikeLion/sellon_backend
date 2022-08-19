@@ -17,8 +17,8 @@ class IsProductEditableOrDestroyable(permissions.BasePermission):
         if obj.user == request.user:
             return True
 
-        if obj.status == Product.IN_AUCTION_STATUS:
-            return True
+        if obj.user != request.user and obj.status == Product.HIDDEN_STATUS:
+            return False
 
         return False
 
