@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.core.files import File
 
 from .models.user import User, get_random_profile_filename
+from dealing.models import Dealing
 
 
 def reset_avatar(self, request, querset):
@@ -13,9 +14,17 @@ def reset_avatar(self, request, querset):
         f.close()
 
 
+def reset_counters(self, request, queryset):
+    for user in queryset:
+        user.completed_dealings_count = Dealing.objects \
+            .filter(product_group__user=user).count() + Dealing.objects \
+            .filter(product__user=user).count()
+        user.save()
+
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    actions = [reset_avatar]
+    actions = [reset_avatar, reset_counters]
 
     list_per_page = 10
     list_display = [
