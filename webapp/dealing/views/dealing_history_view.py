@@ -11,4 +11,5 @@ class DealingHistoryListAPIView(ListAPIView):
 
     def get_queryset(self):
         return Dealing.objects \
-            .filter(product_group__user=self.request.user, completed_at__isnull=False)
+            .filter(product_group__user=self.request.user, completed_at__isnull=False) \
+            .order_by('-updated_at')
