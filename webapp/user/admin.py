@@ -31,7 +31,6 @@ class UserAdmin(admin.ModelAdmin):
         'id',
         'email',
         'username',
-        'avatar_preview',
     ]
     readonly_fields = ('avatar_preview',)
 
