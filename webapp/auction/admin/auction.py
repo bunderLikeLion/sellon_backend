@@ -3,6 +3,7 @@ from django.contrib import admin
 from config.admin import linkify
 from auction.models import InterestedAuction
 from product.models import ProductGroup
+from django.utils.timezone import now
 
 
 def delete_queryset(self, request, queryset):
@@ -22,10 +23,16 @@ def reset_counters(self, request, queryset):
         auction.save()
 
 
+def end(self, request, queryset):
+    queryset = Auction.objects.filter(end_at__lte=now())
+    for auction in queryset:
+        auction.end()
+
+
 @admin.register(Auction)
 class AuctionAdmin(admin.ModelAdmin):
     '''Admin View for Auction'''
-    actions = [delete_queryset, restart, reset_counters]
+    actions = [delete_queryset, restart, reset_counters, end]
 
     list_display = (
         'id',
