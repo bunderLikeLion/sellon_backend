@@ -45,6 +45,9 @@ class RemoveProductAPIView(GenericAPIView):
         product_ids = set(list(map(str, product_group.products.values_list('id', flat=True))))
         product_ids.discard(str(product_id))
 
+        if len(product_ids) == 0:
+            pass
+
         if isinstance(request.data, QueryDict):
             request.data._mutable = True
             request.data.setlist('product_ids', product_ids)
@@ -61,6 +64,11 @@ class RemoveProductAPIView(GenericAPIView):
 
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
+        product_group = ProductGroup.objects.get(id=product_group.id)
+
+        if product_group.products.count() == 0:
+            product_group.delete()
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_200_OK, headers=headers)
