@@ -11,6 +11,9 @@ class IsProductEditableOrDestroyable(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
+        if request.method == 'DELETE' and obj.status != Product.HIDDEN_STATUS:
+            return False
+
         return request.user and (request.user == obj.user or request.user.is_staff)
 
     def showable(self, request, obj):
