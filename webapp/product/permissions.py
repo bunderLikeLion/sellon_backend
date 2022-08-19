@@ -20,7 +20,7 @@ class IsProductEditableOrDestroyable(permissions.BasePermission):
         if obj.user != request.user and obj.status == Product.HIDDEN_STATUS:
             return False
 
-        return False
+        return True
 
 
 class IsProductGroupEditableOrDestroyable(permissions.BasePermission):
